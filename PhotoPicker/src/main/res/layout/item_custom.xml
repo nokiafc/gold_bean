@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.iwf.photopicker.widget.SquareItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/iv_photo"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        />
+    <!--仿微信的蒙版-->
+    <!--<View-->
+        <!--android:id="@+id/cover"-->
+        <!--android:background="@drawable/__picker_photo_bg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+</me.iwf.photopicker.widget.SquareItemLayout>
