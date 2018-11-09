@@ -20,7 +20,9 @@
         <activity android:name=".login.RegisterActivity"/>
         <activity android:name=".login.ForgetPsdActivity"/>
         <activity android:name=".login.ChangePsdActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".main.RoomActivity"/>
         <activity android:name=".my.RechargeActivity"/>
         <activity android:name=".my.RechargeSuccessActivity"/>
