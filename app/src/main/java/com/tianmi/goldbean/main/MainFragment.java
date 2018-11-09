@@ -16,6 +16,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
+        //测试第二部
         return view;
     }
     private void init(View view){
