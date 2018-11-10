@@ -30,6 +30,7 @@
             android:layout_width="21dp"
             android:src="@drawable/icon_phone"/>
         <EditText
+            android:id="@+id/edit_username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/img_phone"
@@ -37,7 +38,7 @@
             android:textSize="14dp"
             android:layout_marginLeft="16dp"
             android:textColorHint="@color/text_color_6"
-            android:hint="@string/register_phone"
+            android:text="17326888239"
             />
     </RelativeLayout>
     <View
@@ -78,7 +79,7 @@
             android:layout_toLeftOf="@+id/button_verify"
             android:textSize="14dp"
             android:layout_marginLeft="16dp"
-            android:hint="@string/register_verify_code"
+            android:text="123456fc"
             />
 
     </RelativeLayout>
@@ -101,6 +102,7 @@
             android:layout_width="21dp"
             android:src="@drawable/icon_password"/>
         <EditText
+            android:id="@+id/edit_psd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/img_password"
@@ -108,7 +110,7 @@
             android:textColorHint="@color/text_color_6"
             android:textSize="14dp"
             android:layout_marginLeft="16dp"
-            android:hint="@string/login_text_password"
+            android:text="123456fc"
             />
     </RelativeLayout>
     <View
@@ -120,6 +122,7 @@
         />
 
     <Button
+        android:id="@+id/btn_register"
         android:layout_width="282dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
