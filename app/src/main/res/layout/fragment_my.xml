@@ -202,16 +202,17 @@
                 android:background="@drawable/icon_my_conduct"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="60dp"/>
+
             <TextView
                 android:id="@+id/text_conduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/img_conduct"
                 android:layout_marginLeft="53dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/img_conduct"
-                android:textSize="14dp"
+                android:text="我做宣传"
                 android:textColor="@color/text_color_5"
-                android:text="邀请好友"/>
+                android:textSize="14dp" />
             <ImageView
                 android:id="@+id/img_collect"
                 android:layout_width="43dp"

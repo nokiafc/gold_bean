@@ -22,7 +22,7 @@ public class RequestInterface extends BaseRequest {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userPhone", userPhone);
         map.put("userPassword", userPassword);
-        this.post("/user/login", map, activity);
+        this.post("/login", map, activity);
     }
     public void register(String userPhone, String userPassword, int userSex, int userAge, String recommendCod) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -31,7 +31,18 @@ public class RequestInterface extends BaseRequest {
         map.put("userSex", userSex);
         map.put("userAge", userAge);
         map.put("recommendCod", recommendCod);
-        this.post("/user/register", map , activity);
+        this.post("/register", map , activity);
     }
+    public void openMerchant(int userId, String merchantsName, String merchantsAddr, String merchantsPhone, String merchantsWx){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("merchantsName", merchantsName);
+        map.put("merchantsAddr", merchantsAddr);
+        map.put("merchantsPhone", merchantsPhone);
+        map.put("merchantsWx", merchantsWx);
+        this.post("/user/createMerchants", map , activity);
+
+    }
+
 
 }

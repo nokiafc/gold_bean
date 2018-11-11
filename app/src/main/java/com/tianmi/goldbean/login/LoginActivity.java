@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.LoginBean;
@@ -67,7 +68,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
 
             @Override
-            public void onResponse(LoginBean o, String message) throws IOException {
+            public void onResponse(LoginBean bean, String message) throws IOException {
+            DataUtil.putPreferences("accessToken", bean.getAccessToken());
+            DataUtil.putPreferences("userId", bean.getUserId()+"");
+            DataUtil.putPreferences("userPhone", bean.getUserPhone()+"");
+                DataUtil.putPreferences("userRecommendCode", bean.getUserRecommendCode()+"");
+                DataUtil.putPreferences("userRole", bean.getUserRole()+"");
+                DataUtil.putPreferences("merchantsFlag", bean.getMerchantsFlag()+"");
             Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(loginIntent);
             finish();

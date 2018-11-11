@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
+        android:name=".GoldApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
         android:label="@string/app_name"
@@ -43,6 +44,14 @@
         <activity android:name=".my.RechargeActivity"/>
         <activity android:name=".my.RechargeSuccessActivity"/>
         <activity android:name=".my.CashActivity"/>
+        <activity android:name=".my.OpenActivity"/>
+        <activity android:name=".my.StartConductActivity"/>
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
