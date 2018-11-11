@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/layout_base_title"/>
-    <me.iwf.photopicker.widget.MultiPickResultView
-        android:id="@+id/up_photo_album"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-       <ListView
-           android:id="@+id/listview"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/layout_base_title"/>
+        <me.iwf.photopicker.widget.MultiPickResultView
+            android:id="@+id/up_photo_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_width="match_parent"
 
-    <Button
-        android:id="@+id/btn_confirm_commit"
-        android:layout_width="282dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="86dp"
-        android:text="提交"
-        android:textColor="@color/text_color_3"
-        android:textSize="16dp"
-        android:background="@drawable/shape_button"/>
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/btn_confirm_commit"
+            android:layout_width="282dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="86dp"
+            android:text="提交"
+            android:textColor="@color/text_color_3"
+            android:textSize="16dp"
+            android:background="@drawable/shape_button"/>
 
 
+    </LinearLayout>
 
 
-
-</LinearLayout>
+</ScrollView>

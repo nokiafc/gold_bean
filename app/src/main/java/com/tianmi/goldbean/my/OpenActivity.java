@@ -118,6 +118,7 @@ public class OpenActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, String message) throws IOException {
                 Toast.makeText(getApplicationContext(), "商户开通成功",Toast.LENGTH_SHORT).show();
+                DataUtil.putPreferences("merchantsFlag", "1");
                 finish();
             }
         });

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
@@ -18,8 +19,11 @@ import me.iwf.photopicker.widget.MultiPickResultView;
 public class MyFragment extends Fragment implements View.OnClickListener {
     private Button rechargeBtn, cashBtn;
     private ImageView conductImg;
+    private TextView userPhone, userIdText ;
     //是否开通商户
     private String merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
+    private String phone = DataUtil.getPreferences("userPhone", "");
+    private String userId = DataUtil.getPreferences("userId", "");
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +32,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        userPhone = (TextView)view.findViewById(R.id.text_phone_num) ;
+        userPhone.setText(phone.substring(0,3)+"****"+phone.substring(7, 11));
+        userIdText = (TextView)view.findViewById(R.id.text_id_num) ;
+        userIdText.setText("ID:  "+userId);
         rechargeBtn = (Button)view.findViewById(R.id.btn_recharge);
         rechargeBtn.setOnClickListener(this);
         cashBtn = (Button)view.findViewById(R.id.btn_cash);
@@ -64,8 +72,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             startActivity(i);
         }
 
+    }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
     }
 }

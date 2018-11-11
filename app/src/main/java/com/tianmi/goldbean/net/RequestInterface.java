@@ -3,6 +3,10 @@ package com.tianmi.goldbean.net;
 import android.app.Activity;
 
 
+import com.tianmi.goldbean.bean.GoodsQuestion;
+import com.tianmi.goldbean.bean.RedPackage;
+import com.tianmi.goldbean.bean.UserGoods;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,12 @@ public class RequestInterface extends BaseRequest {
         this.post("/user/createMerchants", map , activity);
 
     }
-
+    public void publishGoods(UserGoods userGoods, List<GoodsQuestion> list, RedPackage redPackage){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userGoods", userGoods);
+        map.put("questionList", list);
+        map.put("redPackage", redPackage);
+        this.post("/merchants/publishGoods", map, activity);
+    }
 
 }

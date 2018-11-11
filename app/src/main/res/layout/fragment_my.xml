@@ -21,15 +21,19 @@
             android:layout_toRightOf="@+id/img_head"
             android:layout_marginLeft="11dp"
             android:layout_marginTop="52dp"
-            android:text="11111111"/>
+            android:textSize="15dp"
+            android:textColor="@color/text_color_3"
+            android:text=""/>
         <TextView
             android:id="@+id/text_id_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/img_head"
             android:layout_marginLeft="11dp"
+            android:textSize="11dp"
+            android:textColor="@color/text_color_10"
             android:layout_below="@+id/text_phone_num"
-            android:text="11111111"/>
+            android:text=""/>
 
     </RelativeLayout>
     <RelativeLayout

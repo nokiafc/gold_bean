@@ -9,7 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
+
+import java.io.IOException;
+
+import okhttp3.Request;
 
 public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText userName, userPsd;
@@ -49,6 +54,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.register(name, password, 0, 0, "11");
+        requestInterface.setCallback(new JsonCallback() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(Object o, String message) throws IOException {
+                finish();;
+            }
+        });
 
     }
 }

@@ -43,8 +43,9 @@ public class BaseRequest {
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private final OkHttpClient clientPNG = new OkHttpClient();
     private final int SUCCESS_RESULT = 0;
-    private final int SUCCESS_PIC = 2;
     private final int SUCCESS_NO_RESULT = 1;
+    private final int SUCCESS_PIC = 2;
+
     private final int NET_ERROR = 4;
     private int serversLoadTimes = 0;
     private Handler handler = new Handler() {
@@ -122,13 +123,17 @@ public class BaseRequest {
 
                                         handler.sendMessage(msg);
                                     } else {
-                                        String message = jsonObject.getString("message");
+                                        Log.d("FC", "noresult");
                                         Message msg = Message.obtain();
                                         msg.what = SUCCESS_NO_RESULT;
-                                        msg.obj = message;
                                         handler.sendMessage(msg);
                                     }
 
+                                }else {
+                                    Log.d("FC", "noresult");
+                                    Message msg = Message.obtain();
+                                    msg.what = SUCCESS_NO_RESULT;
+                                    handler.sendMessage(msg);
                                 }
 
                             }
