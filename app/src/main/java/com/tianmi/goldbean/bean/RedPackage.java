@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class RedPackage {
     private String  userId;
-    private BigDecimal redAmoun;
+    private BigDecimal redAmount;
     private String redCount;
     private String redWay;
 
@@ -16,12 +16,12 @@ public class RedPackage {
         this.userId = userId;
     }
 
-    public BigDecimal getRedAmoun() {
-        return redAmoun;
+    public BigDecimal getRedAmount() {
+        return redAmount;
     }
 
-    public void setRedAmoun(BigDecimal redAmoun) {
-        this.redAmoun = redAmoun;
+    public void setRedAmount(BigDecimal redAmount) {
+        this.redAmount = redAmount;
     }
 
     public String getRedCount() {

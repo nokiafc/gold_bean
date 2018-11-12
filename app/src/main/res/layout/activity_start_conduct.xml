@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/text_color_3"
+    android:fillViewport="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include layout="@layout/layout_base_title"/>
+        <TextView
+            android:id="@+id/text_my_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传宣传照片，限制5张"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/text_color_5"
+            android:textSize="12dp"/>
+
         <me.iwf.photopicker.widget.MultiPickResultView
             android:id="@+id/up_photo_album"
             android:layout_width="match_parent"
@@ -14,22 +26,161 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleview"
-            android:layout_width="match_parent"
 
-            android:layout_height="match_parent"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/shape_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/text_red_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/text_color_5"
+                android:layout_centerVertical="true"
+                android:text="红包数量"/>
+            <EditText
+                android:id="@+id/edit_red"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/text_red_num"
+                android:textSize="14dp"
+                android:textColorHint="@color/text_color_6"
+                android:background="@null"
+                android:layout_marginLeft="10dp"
+                android:numeric="integer"
+                android:layout_centerVertical="true"
+                android:hint="请输入红包发放数量"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="70dp"
+                android:background="@drawable/shape_line"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/text_red_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/text_color_5"
+                android:layout_centerVertical="true"
+                android:text="红包总金额"/>
+            <EditText
+                android:id="@+id/edit_red_money"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/text_red_money"
+                android:textSize="14dp"
+                android:numeric="integer"
+                android:textColorHint="@color/text_color_6"
+                android:background="@null"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:hint="请输入红包发放总金额"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="70dp"
+                android:background="@drawable/shape_line"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/text_red_way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/text_color_5"
+                android:layout_centerVertical="true"
+                android:text="发放方式"/>
+            <RelativeLayout
+                android:id="@+id/layout_choose"
+                android:layout_toRightOf="@+id/text_red_way"
+                android:layout_marginLeft="30dp"
+                android:layout_width="70dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_choose"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_good_choose"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/text_color_5"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_choose"
+                    android:layout_marginLeft="10dp"
+                    android:text="随机"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_unchoose"
+                android:layout_toRightOf="@+id/layout_choose"
+                android:layout_marginLeft="30dp"
+                android:layout_width="70dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_unchoose"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_good_unchoose"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/text_color_5"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_unchoose"
+                    android:layout_marginLeft="10dp"
+                    android:text="平均"/>
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="70dp"
+                android:background="@drawable/shape_line"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+
 
         <Button
             android:id="@+id/btn_confirm_commit"
             android:layout_width="282dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="86dp"
-            android:text="提交"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_button"
+            android:text="下一步"
             android:textColor="@color/text_color_3"
-            android:textSize="16dp"
-            android:background="@drawable/shape_button"/>
+            android:textSize="16dp" />
 
 
     </LinearLayout>

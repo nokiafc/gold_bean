@@ -8,8 +8,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.tianmi.goldbean.GoldApplication;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -60,6 +62,7 @@ public class BaseRequest {
                     String picUrl = (String)msg.getData().get("picUrl");
                     jsonCallback.onResponse(picUrl, "");
                 }else if(msg.what == SUCCESS_NO_RESULT){
+                    Log.d("FC", "noresult");
                     jsonCallback.onResponse(true, "");
                 }
 
@@ -79,15 +82,12 @@ public class BaseRequest {
     public void post(String url, Map<String, Object> map, final Activity activity) {
         this.activity = activity;
         gson = GoldApplication.getGson();
-        JSONObject json = new JSONObject(map);
-
         RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + url)
                 .addHeader("accessToken", DataUtil.getPreferences("accessToken", ""))
                 .post(requestBody)
                 .build();
-        Log.d("FC", DataUtil.getPreferences("accessToken", ""));
         GoldApplication.getClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -123,7 +123,6 @@ public class BaseRequest {
 
                                         handler.sendMessage(msg);
                                     } else {
-                                        Log.d("FC", "noresult");
                                         Message msg = Message.obtain();
                                         msg.what = SUCCESS_NO_RESULT;
                                         handler.sendMessage(msg);
@@ -148,23 +147,13 @@ public class BaseRequest {
 
     }
 
-    public synchronized void upLoadImg(List<String> urlList) {
-        if (urlList == null || urlList.size() == 0) {
-            return;
-        }
+    public synchronized void upLoadImg(String url) {
         serversLoadTimes = 0;
-        File f = new File(urlList.get(0));
+        File f = new File(url);
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("fileName", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
-//        for (int i = 0; i < urlList.size(); i++) {
-//            File f = new File(urlList.get(i));
-//            if (f != null) {
-//                builder.addFormDataPart("img" + i, f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
-//            }
-//        }
-
 
         gson = GoldApplication.getGson();
         MultipartBody requestBody = builder.build();//

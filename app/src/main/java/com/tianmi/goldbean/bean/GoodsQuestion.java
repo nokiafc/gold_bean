@@ -4,7 +4,7 @@ public class GoodsQuestion {
     private String questionName;
     private String questionAnswer;
     private String questionKeys;
-    private int userId;
+    private String userId;
 
     public String getQuestionName() {
         return questionName;
@@ -30,11 +30,11 @@ public class GoodsQuestion {
         this.questionKeys = questionKeys;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

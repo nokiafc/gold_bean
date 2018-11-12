@@ -33,5 +33,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.5.0'
     implementation 'com.google.code.gson:gson:2.3.1'
     implementation 'com.facebook.fresco:fresco:0.12.0'
-    compile project(path: ':PhotoPicker')
+    implementation project(path: ':PhotoPicker')
+    implementation project(path: ':PhotoPicker')
 }

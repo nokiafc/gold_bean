@@ -91,7 +91,7 @@ public class OpenActivity extends BaseActivity {
 
     private void upLoadImg(){
         BaseRequest baseRequest = new BaseRequest();
-        baseRequest.upLoadImg(photos);
+        baseRequest.upLoadImg(photos.get(0));
         baseRequest.setCallback(new JsonCallback<String>() {
             @Override
             public void onError(Request request, String e) {

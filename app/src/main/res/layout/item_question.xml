@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,9 +30,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_toRightOf="@+id/text_company_phone"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/shape_line"
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
@@ -63,9 +62,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_toRightOf="@+id/text_company_phone"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/shape_line"
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
