@@ -29,7 +29,11 @@ public class MainPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_view_pager, null);
         ImageView imageView =  (ImageView) view.findViewById(R.id.img_view_pager);
-        Glide.with(context).load(R.drawable.pager).into(imageView);
+        Glide.with(context)
+                .load(R.drawable.pager)
+                .placeholder(R.drawable.img_fail)
+                .error(R.drawable.img_fail)
+                .into(imageView);
         container.addView(imageView);
         return imageView;
     }

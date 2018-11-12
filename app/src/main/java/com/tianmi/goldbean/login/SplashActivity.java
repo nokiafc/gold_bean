@@ -6,17 +6,33 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
+import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.net.JsonCallback;
+import com.tianmi.goldbean.net.RequestInterface;
+import com.tianmi.goldbean.net.bean.RecyclerBean;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Request;
 
 public class SplashActivity extends Activity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            Intent i = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(i);
-            finish();
+            if(msg.what == 1){
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }else {
+                Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+
         }
     };
     @Override
@@ -26,17 +42,32 @@ public class SplashActivity extends Activity {
         init();
     }
     private void init(){
-        new Thread(){
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(1500);
-                }catch (Exception e){
+        if(DataUtil.getPreferences("accessToken", "").equals("")){//第一次登陆没有存token
+            Message msg = Message.obtain();
+            msg.what= 0;
+            handler.sendMessageDelayed(msg, 1000);
+        }else {//请求个接口判断token是否过期
+            getMainInfo();
+        }
+    }
 
-                }
-                handler.sendEmptyMessage(-1);
+    private void getMainInfo(){
+        RequestInterface requestInterface = new RequestInterface(this);
+        requestInterface.getMainInfo(1, 10);
+        requestInterface.setCallback(new JsonCallback<List<RecyclerBean>>() {
+            @Override
+            public void onError(Request request, String e) {
 
             }
-        }.start();
+
+            @Override
+            public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+                Message msg = Message.obtain();
+                msg.what= 1;
+                handler.sendMessageDelayed(msg, 1000);
+            }
+        });
+
+
     }
 }

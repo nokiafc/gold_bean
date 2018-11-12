@@ -1,6 +1,7 @@
 package com.tianmi.goldbean.login;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.LoginBean;
@@ -20,13 +24,15 @@ import java.io.IOException;
 
 import okhttp3.Request;
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout forgetPsdLayout, newRegisterLayout;
     private Button login;
     private EditText userName, password;
+    private Dialog myDialog ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_login);
         init();
     }
@@ -56,6 +62,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
     private void login(){
+        myDialog = MyDialog.createLoadingDialog(this, "加载中...");
+        myDialog.show();
+
         String name = userName.getText().toString().trim();
         String psd = password.getText().toString().trim();
 
@@ -64,11 +73,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         requestInterface.setCallback(new JsonCallback<LoginBean>() {
             @Override
             public void onError(Request request, String e) {
-
+                myDialog.dismiss();
+                Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(LoginBean bean, String message) throws IOException {
+                myDialog.dismiss();
+
             DataUtil.putPreferences("accessToken", bean.getAccessToken());
             DataUtil.putPreferences("userId", bean.getUserId()+"");
             DataUtil.putPreferences("userPhone", bean.getUserPhone()+"");

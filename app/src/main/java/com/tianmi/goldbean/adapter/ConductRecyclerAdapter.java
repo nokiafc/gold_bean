@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.bean.GoodsQuestion;
-import com.tianmi.goldbean.bean.RecyclerBean;
 
 import java.util.List;
 

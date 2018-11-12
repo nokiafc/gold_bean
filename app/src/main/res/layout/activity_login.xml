@@ -67,6 +67,7 @@
             android:background="@null"
             android:textColorHint="@color/text_color_6"
             android:textSize="14dp"
+            android:inputType="textPassword"
             android:layout_marginLeft="16dp"
             android:text="123456fc"
             />

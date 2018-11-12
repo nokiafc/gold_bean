@@ -54,5 +54,11 @@ public class RequestInterface extends BaseRequest {
         map.put("redPackage", redPackage);
         this.post("/merchants/publishGoods", map, activity);
     }
+    public void getMainInfo(int pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/index", map, activity);
+    }
 
 }

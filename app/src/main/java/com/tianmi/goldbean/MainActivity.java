@@ -13,7 +13,7 @@ import com.tianmi.goldbean.main.MainFragment;
 import com.tianmi.goldbean.message.MessageFragment;
 import com.tianmi.goldbean.my.MyFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mainLayout, messageLayout, myLayout;
     private FragmentManager manager;
     private FragmentTransaction transaction;

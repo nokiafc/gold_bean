@@ -1,6 +1,7 @@
 package com.tianmi.goldbean.net;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.config.Config;
+import com.tianmi.goldbean.login.LoginActivity;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,7 +50,7 @@ public class BaseRequest {
     private final int SUCCESS_RESULT = 0;
     private final int SUCCESS_NO_RESULT = 1;
     private final int SUCCESS_PIC = 2;
-
+    private final int TOKEN_OVERDUE = 3;//token过期
     private final int NET_ERROR = 4;
     private int serversLoadTimes = 0;
     private Handler handler = new Handler() {
@@ -62,8 +65,15 @@ public class BaseRequest {
                     String picUrl = (String)msg.getData().get("picUrl");
                     jsonCallback.onResponse(picUrl, "");
                 }else if(msg.what == SUCCESS_NO_RESULT){
-                    Log.d("FC", "noresult");
+
                     jsonCallback.onResponse(true, "");
+                }else if(msg.what == TOKEN_OVERDUE){
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    activity.finish();
+                }else if(msg.what == NET_ERROR){
+                    String message= (String)msg.getData().get("msg");
+                    jsonCallback.onError(null, message);
                 }
 
             } catch (Exception e) {
@@ -80,6 +90,7 @@ public class BaseRequest {
     }
 
     public void post(String url, Map<String, Object> map, final Activity activity) {
+
         this.activity = activity;
         gson = GoldApplication.getGson();
         RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
@@ -99,6 +110,7 @@ public class BaseRequest {
 
                 if (response.isSuccessful()) {
                     String jsonStr = response.body().string();
+                    Log.d("FC", jsonStr);
 
                     if (!TextUtils.isEmpty(jsonStr)) {
                         try {
@@ -129,12 +141,23 @@ public class BaseRequest {
                                     }
 
                                 }else {
-                                    Log.d("FC", "noresult");
                                     Message msg = Message.obtain();
                                     msg.what = SUCCESS_NO_RESULT;
                                     handler.sendMessage(msg);
                                 }
 
+                            }else if(statusCode.equals("410000")){
+                                Message msg = Message.obtain();
+                                msg.what = TOKEN_OVERDUE;
+                                handler.sendMessage(msg);
+                            }else {
+                                String msg = jsonObject.getString("msg");
+                                Bundle b = new Bundle();
+                                b.putString("msg", msg);
+                                Message message = Message.obtain();
+                                message.setData(b);
+                                message.what = NET_ERROR;
+                                handler.sendMessage(message);
                             }
 
                         } catch (Exception e) {

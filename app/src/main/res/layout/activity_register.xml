@@ -110,6 +110,7 @@
             android:textColorHint="@color/text_color_6"
             android:textSize="14dp"
             android:layout_marginLeft="16dp"
+            android:inputType="textPassword"
             android:text="123456fc"
             />
     </RelativeLayout>

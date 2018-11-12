@@ -16,10 +16,15 @@ import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.adapter.MainPagerAdapter;
 import com.tianmi.goldbean.adapter.MainRecyclerAdapter;
 import com.tianmi.goldbean.bean.PagerBean;
-import com.tianmi.goldbean.bean.RecyclerBean;
+import com.tianmi.goldbean.net.JsonCallback;
+import com.tianmi.goldbean.net.RequestInterface;
+import com.tianmi.goldbean.net.bean.RecyclerBean;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 public class MainFragment extends Fragment implements ViewPager.OnPageChangeListener {
     private ViewPager viewPager;
@@ -36,22 +41,37 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
-
+        getMainInfo();
         return view;
     }
+    private void getMainInfo(){
+        RequestInterface requestInterface = new RequestInterface(getActivity());
+        requestInterface.getMainInfo(1, 10);
+        requestInterface.setCallback(new JsonCallback<List<RecyclerBean>>() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+                recyclerList.addAll(list);
+                mainRecyclerAdapter.notifyDataSetChanged();
+            }
+        });
+
+    }
     private void init(View view){
-        for(int i=0; i<3;i++){
+        for(int i=0; i<1;i++){
             PagerBean bean = new PagerBean();
             list.add(bean);
         }
-        for(int i=0; i<100; i++){
-            RecyclerBean bean = new RecyclerBean();
-            recyclerList.add(bean);
-        }
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         mainRecyclerAdapter = new MainRecyclerAdapter(getActivity(), recyclerList);
         recyclerView.setAdapter(mainRecyclerAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
 
 
         imageViews = new ImageView[list.size()];
