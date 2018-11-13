@@ -74,6 +74,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
 
 
+
         imageViews = new ImageView[list.size()];
         dotLayout = (LinearLayout)view.findViewById(R.id.layout_dot);
         viewPager = (ViewPager)view.findViewById(R.id.viewPager);

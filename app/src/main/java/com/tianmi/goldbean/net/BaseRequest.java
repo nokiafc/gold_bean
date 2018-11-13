@@ -91,8 +91,10 @@ public class BaseRequest {
 
     public void post(String url, Map<String, Object> map, final Activity activity) {
 
+
         this.activity = activity;
         gson = GoldApplication.getGson();
+        Log.d("FC", gson.toJson(map)+"=");
         RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + url)

@@ -60,5 +60,23 @@ public class RequestInterface extends BaseRequest {
         map.put("pageSize", pageSize);
         this.post("/index", map, activity);
     }
+    public void getGoodsDetail(int goodsId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsId", goodsId);
+        this.post("/user/getGoodsDetail", map, activity);
+    }
+    public void goodsComment(int goodsId, String remark, String userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsId", goodsId);
+        map.put("remark", remark);
+        map.put("userId", userId);
+        this.post("/user/goodsComment", map, activity);
+    }
+
+    public void getMerchantsInfo(int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        this.post("/merchants/getMerchantsInfo", map, activity);
+    }
 
 }

@@ -40,11 +40,21 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".main.RoomActivity"/>
-        <activity android:name=".my.RechargeActivity"/>
-        <activity android:name=".my.RechargeSuccessActivity"/>
-        <activity android:name=".my.CashActivity"/>
-        <activity android:name=".my.OpenActivity"/>
+        <activity android:name=".main.RoomActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.RechargeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.RechargeSuccessActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.CashActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.OpenActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".my.StartConductActivity"/>
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
@@ -52,7 +62,12 @@
         <activity
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.GoodsVerfiyActivity"/>
+        <activity android:name=".my.GoodsVerfiyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.MerchantInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
     </application>
 

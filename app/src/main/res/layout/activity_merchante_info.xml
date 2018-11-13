@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_3"
+    android:orientation="vertical">
+    <include layout="@layout/layout_base_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/icon_merchant_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/text_merchant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_5"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:text="asdfsd"
+            android:textSize="14dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shape_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/icon_merchant_address"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/text_merchant_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_5"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:text="asdfsd"
+            android:textSize="14dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shape_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/icon_merchant_phone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/text_merchant_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_5"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:text="asdfsd"
+            android:textSize="14dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shape_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_5"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:text="微信联系二维码"
+            android:textSize="14dp"/>
+        <View
+            android:layout_width="86dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_line"
+            android:layout_toRightOf="@+id/text1"/>
+
+        <View
+            android:layout_width="86dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="37dp"
+            android:layout_toLeftOf="@+id/text1"
+            android:background="@drawable/shape_line" />
+        <ImageView
+            android:layout_width="189dp"
+            android:layout_height="189dp"/>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

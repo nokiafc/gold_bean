@@ -23,6 +23,9 @@
     <color name="text_color_10">#7dffffff</color>
     <color name="black_toolbar">#2d2c32</color>
 
+    <color name="red_background">#FFF5F6</color>
+    <color name="background_1">#f6f6f6</color>
+
     <color name="background_color_1">#fd9c2b</color>
     <color name="background_color_2">#f3f3f3</color>
 </resources>
