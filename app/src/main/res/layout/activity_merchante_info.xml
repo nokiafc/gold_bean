@@ -21,7 +21,7 @@
             android:textColor="@color/text_color_5"
             android:layout_marginLeft="40dp"
             android:layout_centerVertical="true"
-            android:text="asdfsd"
+            android:text=""
             android:textSize="14dp"/>
         <View
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:textColor="@color/text_color_5"
             android:layout_marginLeft="40dp"
             android:layout_centerVertical="true"
-            android:text="asdfsd"
+            android:text=""
             android:textSize="14dp"/>
         <View
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             android:textColor="@color/text_color_5"
             android:layout_marginLeft="40dp"
             android:layout_centerVertical="true"
-            android:text="asdfsd"
+            android:text=""
             android:textSize="14dp"/>
         <View
             android:layout_width="match_parent"

@@ -28,4 +28,6 @@
 
     <color name="background_color_1">#fd9c2b</color>
     <color name="background_color_2">#f3f3f3</color>
+    <color name="background_color_3">#FE4947</color>
+    <color name="background_color_4">#f4f4f4</color>
 </resources>

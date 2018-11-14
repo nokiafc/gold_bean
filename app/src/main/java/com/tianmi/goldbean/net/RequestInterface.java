@@ -54,7 +54,9 @@ public class RequestInterface extends BaseRequest {
         map.put("redPackage", redPackage);
         this.post("/merchants/publishGoods", map, activity);
     }
-    public void getMainInfo(int pageNo, int pageSize){
+
+
+    public void getMainInfo(int  pageNo, int pageSize){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pageNo", pageNo);
         map.put("pageSize", pageSize);
@@ -73,10 +75,26 @@ public class RequestInterface extends BaseRequest {
         this.post("/user/goodsComment", map, activity);
     }
 
-    public void getMerchantsInfo(int userId){
+    public void getMerchantsInfo(int merchant_userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("merchant_userId", merchant_userId);
+        this.post("/getMerchantsInfo", map, activity);
+    }
+
+    //获取问题
+    public void getQuestions(int userId, int goodsId){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
-        this.post("/merchants/getMerchantsInfo", map, activity);
+        map.put("goodsId", goodsId);
+        this.post("/user/getQuestions", map, activity);
+    }
+    //回答问题
+    public void answer(int questionId, String questionAnswer, int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("questionAnswer", questionAnswer);
+        map.put("questionId", questionId);
+        this.post("/user/answer", map, activity);
     }
 
 }

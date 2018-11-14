@@ -20,7 +20,36 @@ public class RoomBean {
     private int redCount;
     private String remainAmount;
     private Object remainCount;
-    private List<?> commentInfo;
+
+    public List<CommentInfo> getCommentInfo() {
+        return commentInfo;
+    }
+
+    public void setCommentInfo(List<CommentInfo> commentInfo) {
+        this.commentInfo = commentInfo;
+    }
+
+    private List<CommentInfo> commentInfo;
+    public class CommentInfo{
+        private String userPhone;
+        private String userComments;
+
+        public String getUserPhone() {
+            return userPhone;
+        }
+
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
+        }
+
+        public String getUserComments() {
+            return userComments;
+        }
+
+        public void setUserComments(String userComments) {
+            this.userComments = userComments;
+        }
+    }
 
     public String getGoodsUrl() {
         return goodsUrl;
@@ -70,11 +99,5 @@ public class RoomBean {
         this.remainCount = remainCount;
     }
 
-    public List<?> getCommentInfo() {
-        return commentInfo;
-    }
 
-    public void setCommentInfo(List<?> commentInfo) {
-        this.commentInfo = commentInfo;
-    }
 }

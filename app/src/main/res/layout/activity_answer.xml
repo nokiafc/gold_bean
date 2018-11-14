@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+    <include layout="@layout/layout_base_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient">
+
+        <ImageView
+            android:layout_width="197dp"
+            android:layout_height="41dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/background_answer"
+            android:layout_marginTop="19dp"/>
+        <TextView
+            android:id="@+id/text_question_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本次抢答共计5题"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/text_color_3"
+            android:layout_marginTop="21dp"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_question"
+            android:layout_width="326dp"
+            android:layout_height="185dp"
+            android:background="@drawable/shape_background_white"
+            android:layout_below="@+id/text_question_num"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/text_question_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="问题:"
+                android:textSize="18dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/text_color_5"
+                android:layout_marginTop="50dp"/>
+            <EditText
+                android:id="@+id/edit_answer"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/shape_edit_background"
+                android:gravity="center"
+                android:textSize="13dp"
+                android:textColorHint="@color/text_color_6"
+                android:hint="填写问题正确答案"/>
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="96dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/background_question_1"
+            android:layout_marginTop="80dp"/>
+
+        <TextView
+            android:id="@+id/text_question_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="18dp"
+            android:layout_below="@+id/text_question_num"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/text_color_3"
+            android:layout_marginTop="99dp"/>
+
+        <Button
+            android:id="@+id/next_question"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@+id/layout_question"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/shape_button_white_background"
+            android:text="下一题"
+            android:layout_marginTop="50dp"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:textColor="@color/text_color_2"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

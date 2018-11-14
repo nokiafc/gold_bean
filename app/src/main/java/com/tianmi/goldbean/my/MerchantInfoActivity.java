@@ -15,6 +15,7 @@ import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.net.BaseRequest;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
+import com.tianmi.goldbean.net.bean.MerchantBean;
 
 import org.w3c.dom.Text;
 
@@ -46,6 +47,19 @@ public class MerchantInfoActivity extends BaseActivity {
     private void getMerchantInfo(){
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.getMerchantsInfo(Integer.parseInt(merchantUserId));
+        requestInterface.setCallback(new JsonCallback<MerchantBean>() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(MerchantBean bean, String message) throws IOException {
+                merchantName.setText(bean.getMerchantsName());
+                merchantAddress.setText(bean.getMerchantsAddr());
+                merchantPhone.setText(bean.getMerchantsPhone());
+            }
+        });
     }
 
 
