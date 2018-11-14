@@ -79,7 +79,7 @@
             android:layout_toLeftOf="@+id/button_verify"
             android:textSize="14dp"
             android:layout_marginLeft="16dp"
-            android:text="123456fc"
+            android:text=""
             />
 
     </RelativeLayout>

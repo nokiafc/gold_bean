@@ -12,6 +12,7 @@ import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
+import com.tianmi.goldbean.net.bean.RegisterBean;
 
 import java.io.IOException;
 
@@ -56,15 +57,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.register(name, password, 0, 0, "11");
-        requestInterface.setCallback(new JsonCallback() {
+        requestInterface.setCallback(new JsonCallback<RegisterBean>() {
             @Override
             public void onError(Request request, String e) {
-
+                Toast.makeText(getApplicationContext(), e,Toast.LENGTH_SHORT ).show();
             }
 
             @Override
-            public void onResponse(Object o, String message) throws IOException {
-                finish();;
+            public void onResponse(RegisterBean bean, String message) throws IOException {
+                finish();
             }
         });
 
