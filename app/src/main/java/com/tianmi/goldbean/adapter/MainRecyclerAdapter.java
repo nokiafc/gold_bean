@@ -1,5 +1,6 @@
 package com.tianmi.goldbean.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.main.RoomActivity;
 import com.tianmi.goldbean.net.bean.RecyclerBean;
 
@@ -53,11 +55,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         holder1.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, RoomActivity.class);
-                Bundle b = new Bundle();
-                b.putString("goodsId", ""+list.get(position).getId());
-                intent.putExtras(b);
-                context.startActivity(intent);
+                ActivityUtil.startActivity((Activity) context, RoomActivity.class, list.get(position).getId()+"");
             }
         });
     }

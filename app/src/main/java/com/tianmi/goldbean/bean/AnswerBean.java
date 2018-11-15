@@ -5,6 +5,8 @@ public class AnswerBean {
     private String questionAnswer;
     private int userId;
 
+
+
     public int getQuestionId() {
         return questionId;
     }

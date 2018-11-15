@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.tianmi.goldbean.BaseActivity;
+import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.R;
 
 public class ForgetPsdActivity extends BaseActivity {
@@ -15,7 +16,9 @@ public class ForgetPsdActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_forget_psd);
+        GoldApplication.getAppInstance().addActivity(this);
         initTitle("忘记密码");
         init();
     }

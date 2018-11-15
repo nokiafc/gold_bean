@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.adapter.CommentAdapter;
 import com.tianmi.goldbean.adapter.RoomPagerAdapter;
@@ -48,9 +49,10 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setEnterTransition(true);
         setContentView(R.layout.activity_room);
         initTitle("商品详情");
-        goodsId = (String)getIntent().getExtras().get("goodsId");
+        goodsId = (String)getIntent().getExtras().get("key");
         init();
         getGoodsDetail();
     }
@@ -114,9 +116,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.merchant_layout:
                 //跳转商家信息页
-                Intent intent = new Intent(this, MerchantInfoActivity.class);
-                intent.putExtra("merchantUserId", merchantUserId);
-                startActivity(intent);
+                ActivityUtil.startActivity(this, MerchantInfoActivity.class, merchantUserId);
                 break;
             case R.id.get_red://跳转回答问题页面
                 Intent i  = new Intent(this, AnswerActivity.class);

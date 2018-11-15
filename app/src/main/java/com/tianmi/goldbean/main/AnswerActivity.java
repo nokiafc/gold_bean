@@ -12,9 +12,13 @@ import android.widget.Toast;
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.bean.AnswerBean;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.QuestionBean;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
     private Button nextBtn;
     private int index = 1;
     private EditText editAnswer;
+    private List<AnswerBean> answerBeans = new ArrayList<AnswerBean>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +66,8 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
                 questionList.addAll(list);
                 questionNumText.setText("本次抢答共计"+list.size()+"题");
                 questionIndexText.setText(index+"");
-
                 questionContextText.setText("问题:"+list.get(0).getQuestionName());
+
                 if(list.size() == 1){//只有一个问题，修改button内容
                     nextBtn.setText("提交");
                 }
@@ -74,12 +79,20 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.next_question:
-                if(nextBtn.getText().toString().equals("提交")){
-                    answer();
-                }
                 if(editAnswer.getText().toString() .equals("")){
                     Toast.makeText(this, "问题答案不能为空", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                String answer = editAnswer.getText().toString();
+                AnswerBean bean = new AnswerBean();
+                bean.setQuestionAnswer(answer);
+                bean.setQuestionId(index);
+                bean.setUserId(Integer.parseInt(userId));
+                answerBeans.add(bean);
+
+                if(nextBtn.getText().toString().equals("提交")){
+                    answer();
                 }
                 if(index < questionList.size()){//
                     questionIndexText.setText(index+1+"");
@@ -94,6 +107,23 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void answer(){
+        RequestInterface requestInterface = new RequestInterface(this);
+
+        JSONArray array = new JSONArray();
+        for(int i=0; i<answerBeans.size(); i++){
+            try{
+                JSONObject object = new JSONObject();
+                object.put("userId", userId);
+                object.put("questionAnswer", answerBeans.get(i).getQuestionAnswer());
+                object.put("questionId", i);
+                array.put(object);
+            }catch (Exception e){
+
+            }
+
+        }
+
+        requestInterface.answer(array.toString());
 
     }
 }

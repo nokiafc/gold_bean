@@ -32,8 +32,9 @@ public class MerchantInfoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_merchante_info);
-        merchantUserId = getIntent().getStringExtra("merchantUserId");
+        merchantUserId = getIntent().getStringExtra("key");
         initTitle("商家信息");
         init();
         getMerchantInfo();

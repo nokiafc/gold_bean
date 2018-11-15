@@ -65,6 +65,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_start_conduct);
         initTitle("商家设置");
         init();

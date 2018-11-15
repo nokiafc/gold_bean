@@ -171,6 +171,87 @@ public class BaseRequest {
         });
 
     }
+    public void postArray(String url, String content, final Activity activity) {
+
+
+        this.activity = activity;
+        Log.d("FC", content+"---content");
+        RequestBody requestBody = RequestBody.create(JSON, content);
+        Request request = new Request.Builder()
+                .url(Config.BASE_URL + url)
+                .addHeader("accessToken", DataUtil.getPreferences("accessToken", ""))
+                .post(requestBody)
+                .build();
+        GoldApplication.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String jsonStr = response.body().string();
+                    Log.d("FC", jsonStr);
+
+                    if (!TextUtils.isEmpty(jsonStr)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(jsonStr);
+
+                            String statusCode = jsonObject.getString("code");
+                            Log.d("FC", "statusCode----" + statusCode);
+                            if (statusCode.equals("200")) {
+
+                                String data;
+                                if (jsonObject.has("data")) {
+                                    data = jsonObject.getString("data");
+                                    if (!data.equals("null")) {
+                                        Log.d("FC", "data----" + data);
+
+                                        Message msg = Message.obtain();
+                                        Object object = gson.fromJson(data, jsonCallback.getType());
+
+                                        msg.what = SUCCESS_RESULT;
+                                        msg.obj = object;
+
+
+                                        handler.sendMessage(msg);
+                                    } else {
+                                        Message msg = Message.obtain();
+                                        msg.what = SUCCESS_NO_RESULT;
+                                        handler.sendMessage(msg);
+                                    }
+
+                                }else {
+                                    Message msg = Message.obtain();
+                                    msg.what = SUCCESS_NO_RESULT;
+                                    handler.sendMessage(msg);
+                                }
+
+                            }else if(statusCode.equals("410000")){
+                                Message msg = Message.obtain();
+                                msg.what = TOKEN_OVERDUE;
+                                handler.sendMessage(msg);
+                            }else {
+                                String msg = jsonObject.getString("msg");
+                                Bundle b = new Bundle();
+                                b.putString("msg", msg);
+                                Message message = Message.obtain();
+                                message.setData(b);
+                                message.what = NET_ERROR;
+                                handler.sendMessage(message);
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
+    }
 
     public synchronized void upLoadImg(String url) {
         serversLoadTimes = 0;

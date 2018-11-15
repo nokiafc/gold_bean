@@ -65,7 +65,7 @@
             android:id="@+id/text_gold_bean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/my_gold_bean"
+            android:text="余额(元)"
             android:layout_below="@+id/img_wallet"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="13dp"

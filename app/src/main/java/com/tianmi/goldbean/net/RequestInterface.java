@@ -3,6 +3,7 @@ package com.tianmi.goldbean.net;
 import android.app.Activity;
 
 
+import com.tianmi.goldbean.bean.AnswerBean;
 import com.tianmi.goldbean.bean.GoodsQuestion;
 import com.tianmi.goldbean.bean.RedPackage;
 import com.tianmi.goldbean.bean.UserGoods;
@@ -89,12 +90,15 @@ public class RequestInterface extends BaseRequest {
         this.post("/user/getQuestions", map, activity);
     }
     //回答问题
-    public void answer(int questionId, String questionAnswer, int userId){
+    public void answer(String content){
+
+        this.postArray("/user/answer", content, activity);
+    }
+    //获取我的页面信息
+    public void getMyInfo(int userId){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
-        map.put("questionAnswer", questionAnswer);
-        map.put("questionId", questionId);
-        this.post("/user/answer", map, activity);
+        this.post("/user/getUserInfo", map, activity);
     }
 
 }

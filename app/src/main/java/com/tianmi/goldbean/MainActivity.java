@@ -5,9 +5,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.tianmi.goldbean.main.MainFragment;
 import com.tianmi.goldbean.message.MessageFragment;
@@ -23,7 +25,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransitionFade(true);
         setContentView(R.layout.activity_main);
+
         init();
     }
     private void init(){
@@ -127,5 +131,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         hideFragment(transaction);
         transaction.show(myFragment);
         transaction.commit();
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        GoldApplication.getAppInstance().finishActivity();
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finishAfterTransition();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

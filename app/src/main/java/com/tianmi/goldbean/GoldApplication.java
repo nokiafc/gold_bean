@@ -1,16 +1,22 @@
 package com.tianmi.goldbean;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import okhttp3.OkHttpClient;
 
 public class GoldApplication extends Application {
     public static OkHttpClient client;
     public static Gson gson;
+    private List<Activity> startList = new LinkedList<Activity>();
+    public static GoldApplication goldInstance;
 
     public static SharedPreferences sp;
     @Override
@@ -18,6 +24,25 @@ public class GoldApplication extends Application {
         super.onCreate();
         initOkHttpClient();
         sp = getSharedPreferences("com.tianmi.goldbean", 0);
+    }
+
+    public static GoldApplication getAppInstance() {
+        if (goldInstance == null) {
+            goldInstance = new GoldApplication();
+        }
+
+        return goldInstance;
+    }
+
+    public void finishActivity() {
+        for (Activity activity : startList) {
+            activity.finish();
+        }
+        startList.clear();
+    }
+
+    public void addActivity(Activity activity) {
+        startList.add(activity);
     }
     private void initOkHttpClient() {
         gson = new Gson();

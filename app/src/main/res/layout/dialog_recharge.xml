@@ -31,7 +31,7 @@
             <ImageView
                 android:layout_height="29dp"
                 android:layout_width="29dp"
-                android:background="@drawable/icon_alipay"
+                android:src="@drawable/icon_alipay"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"/>
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/icon_pay_choose"/>
+                android:src="@drawable/icon_pay_choose"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/layout_wechat"
@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_height="29dp"
                 android:layout_width="29dp"
-                android:background="@drawable/icon_wechat"
+                android:src="@drawable/icon_wechat"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"/>
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/icon_pay_unchoose"/>
+                android:src="@drawable/icon_pay_unchoose"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

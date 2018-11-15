@@ -7,8 +7,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import com.tianmi.goldbean.BaseActivity;
+import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
@@ -19,14 +22,13 @@ import java.util.List;
 
 import okhttp3.Request;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
+                ActivityUtil.startActivity(SplashActivity.this, MainActivity.class);
+
             }else {
                 Intent i = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(i);
@@ -39,6 +41,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        GoldApplication.getAppInstance().addActivity(this);
         init();
     }
     private void init(){

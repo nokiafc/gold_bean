@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.net.RequestInterface;
 
 import me.iwf.photopicker.widget.MultiPickResultView;
 
@@ -29,6 +31,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         init(view);
+        getMyInfo();
         return view;
     }
     private void init(View view ){
@@ -49,12 +52,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_recharge://充值
-                Intent i = new Intent(getActivity(), RechargeActivity.class);
-                startActivity(i);
+                ActivityUtil.startActivity(getActivity(), RechargeActivity.class);
                 break;
             case R.id.btn_cash://提现
-                Intent ii = new Intent(getActivity(), CashActivity.class);
-                startActivity(ii);
+                ActivityUtil.startActivity(getActivity(), CashActivity.class);
                 break;
             case R.id.img_conduct:
                 startConduct();
@@ -65,13 +66,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void startConduct(){
         //1.判断个人状态是个人还是已经是商户了
         if(merchantsFlag.equals("0") || merchantsFlag == null){
-            Intent intent = new Intent(getActivity(), OpenActivity.class);
-            startActivity(intent);
+            ActivityUtil.startActivity(getActivity(), OpenActivity.class);
         }else {//2.宣传产品
-            Intent i = new Intent(getActivity(), StartConductActivity.class);
-            startActivity(i);
+            ActivityUtil.startActivity(getActivity(), StartConductActivity.class);
+
         }
 
+    }
+
+    private void getMyInfo(){
+        RequestInterface requestInterface = new RequestInterface(getActivity());
+        requestInterface.getMyInfo(Integer.parseInt(userId));
     }
 
     @Override

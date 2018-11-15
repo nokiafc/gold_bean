@@ -12,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.BaseActivity;
+import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.net.JsonCallback;
@@ -34,6 +36,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setEnterTransition(true);
         setContentView(R.layout.activity_login);
+        GoldApplication.getAppInstance().addActivity(this);
         init();
     }
     private void init(){
@@ -51,11 +54,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.layout_forget_psd){
-            Intent i = new Intent(this, ForgetPsdActivity.class);
-            startActivity(i);
+            ActivityUtil.startActivity(this, ForgetPsdActivity.class);
         }else if(id == R.id.layout_new_register){
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+            ActivityUtil.startActivity(this, RegisterActivity.class);
         }else if(id == R.id.btn_login){
             login();
 
@@ -87,8 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 DataUtil.putPreferences("userRecommendCode", bean.getUserRecommendCode()+"");
                 DataUtil.putPreferences("userRole", bean.getUserRole()+"");
                 DataUtil.putPreferences("merchantsFlag", bean.getMerchantsFlag()+"");
-            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(loginIntent);
+            ActivityUtil.startActivity(LoginActivity.this, MainActivity.class);
             finish();
             }
         });

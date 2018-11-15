@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.BaseActivity;
+import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
@@ -26,6 +27,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setEnterTransition(true);
         setContentView(R.layout.activity_register);
+        GoldApplication.getAppInstance().addActivity(this);
         init();
     }
     private void init(){
@@ -65,7 +67,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void onResponse(RegisterBean bean, String message) throws IOException {
-                finish();
+                Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                finishAfterTransition();
             }
         });
 

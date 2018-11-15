@@ -14,6 +14,7 @@ public class CashActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_cash);
         initTitle("提现");
         init();
