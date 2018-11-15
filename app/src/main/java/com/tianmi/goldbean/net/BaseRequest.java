@@ -94,7 +94,7 @@ public class BaseRequest {
 
         this.activity = activity;
         gson = GoldApplication.getGson();
-        Log.d("FC", gson.toJson(map)+"=");
+        Log.d("FC", gson.toJson(map)+"~~~~~~~~~");
         RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + url)

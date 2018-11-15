@@ -112,11 +112,11 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
             Toast.makeText(this, "商家宣传图片数量需大于1张", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(redNum == null || redNum.equals("0") ){
+        if(redNum == null || redNum.equals("0") || redNum.equals("")){
             Toast.makeText(this, "请输入正确的红包数量", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(allMoney == null || allMoney.equals("0") ){
+        if(allMoney == null || allMoney.equals("0") || allMoney.equals("")){
             Toast.makeText(this, "请输入正确红包金额", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -149,6 +149,9 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         userGoods.setUserId(userId);
         String allUrl = "";
         for(int i=0; i< picUrls.size(); i++){
+            if(i==0){
+                allUrl =  picUrls.get(0);
+            }
             allUrl = allUrl+","+picUrls.get(i);
         }
         Log.d("FC", allUrl+"----allUrl");

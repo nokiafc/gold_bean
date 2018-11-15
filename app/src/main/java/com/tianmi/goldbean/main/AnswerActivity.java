@@ -13,6 +13,7 @@ import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.bean.AnswerBean;
+import com.tianmi.goldbean.bean.QuestionAnswer;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.QuestionBean;
@@ -34,7 +35,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
     private Button nextBtn;
     private int index = 1;
     private EditText editAnswer;
-    private List<AnswerBean> answerBeans = new ArrayList<AnswerBean>();
+    private List<QuestionAnswer> answerBeans = new ArrayList<QuestionAnswer>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,9 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 String answer = editAnswer.getText().toString();
-                AnswerBean bean = new AnswerBean();
+
+
+                QuestionAnswer bean = new QuestionAnswer();
                 bean.setQuestionAnswer(answer);
                 bean.setQuestionId(index);
                 bean.setUserId(Integer.parseInt(userId));
@@ -108,22 +111,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
 
     private void answer(){
         RequestInterface requestInterface = new RequestInterface(this);
-
-        JSONArray array = new JSONArray();
-        for(int i=0; i<answerBeans.size(); i++){
-            try{
-                JSONObject object = new JSONObject();
-                object.put("userId", userId);
-                object.put("questionAnswer", answerBeans.get(i).getQuestionAnswer());
-                object.put("questionId", i);
-                array.put(object);
-            }catch (Exception e){
-
-            }
-
-        }
-
-        requestInterface.answer(array.toString());
+        requestInterface.answer(answerBeans, Integer.parseInt(userId), Integer.parseInt(goodsId));
 
     }
 }

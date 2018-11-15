@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import com.tianmi.goldbean.bean.AnswerBean;
 import com.tianmi.goldbean.bean.GoodsQuestion;
+import com.tianmi.goldbean.bean.QuestionAnswer;
 import com.tianmi.goldbean.bean.RedPackage;
 import com.tianmi.goldbean.bean.UserGoods;
 
@@ -90,9 +91,12 @@ public class RequestInterface extends BaseRequest {
         this.post("/user/getQuestions", map, activity);
     }
     //回答问题
-    public void answer(String content){
-
-        this.postArray("/user/answer", content, activity);
+    public void answer(List<QuestionAnswer> list, int userId, int goodsId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("questionAnswer", list);
+        map.put("userId", userId);
+        map.put("goodsId", goodsId);
+        this.post("/user/answer", map, activity);
     }
     //获取我的页面信息
     public void getMyInfo(int userId){
