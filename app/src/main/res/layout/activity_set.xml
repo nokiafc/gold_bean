@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/title_text"
+        layout="@layout/layout_base_title"/>
+    <RelativeLayout
+        android:id="@+id/manager_layout"
+        android:layout_below="@+id/title_text"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="44dp">
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="18dp"
+            android:background="@drawable/icon_right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
+        <TextView
+            android:id="@+id/text_merchant_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_5"
+            android:layout_centerInParent="true"
+            android:text="进入管理员页面"
+            android:textSize="14dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shape_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
+
+
+    <Button
+        android:id="@+id/btn_confirm_cash"
+        android:layout_width="282dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:text="退出"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/text_color_3"
+        android:textSize="16dp"
+        android:background="@drawable/shape_button"/>
+
+
+
+
+
+</RelativeLayout>

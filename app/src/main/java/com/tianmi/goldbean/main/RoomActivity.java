@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.iwf.photopicker.widget.MultiPickResultView;
 import okhttp3.Request;
 
 public class RoomActivity extends BaseActivity implements View.OnClickListener {
@@ -38,13 +39,14 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
     private String userId = DataUtil.getPreferences("userId", "");
     private RelativeLayout circleFriendLayout, merchantLayout;
     private String merchantUserId = "";
-    private ViewPager viewPager;
-    private RoomPagerAdapter adapter;
+//    private ViewPager viewPager;
+//    private RoomPagerAdapter adapter;
     private List<String> list = new ArrayList<String>();
-    private TextView redNumText;
+    private TextView redNumText, merchantContent;
     private ListView sayListView;
     private CommentAdapter commentAdapter;
     private List<RoomBean.CommentInfo> commentInfos = new ArrayList<RoomBean.CommentInfo>();
+    private MultiPickResultView multiPick;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,9 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         getGoodsDetail();
     }
     private void init(){
+        merchantContent = (TextView)findViewById(R.id.merchant_content) ;
+        multiPick = (MultiPickResultView)findViewById(R.id.multiPick);
+
         sayListView = (ListView)findViewById(R.id.say_listview);
         commentAdapter = new CommentAdapter(this, commentInfos);
         sayListView.setAdapter(commentAdapter);
@@ -64,9 +69,9 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         redNumText = (TextView)findViewById(R.id.text_red) ;
         getRedBtn = (Button)findViewById(R.id.get_red);
         getRedBtn.setOnClickListener(this);
-        viewPager = (ViewPager)findViewById(R.id.viewPager) ;
-        adapter = new RoomPagerAdapter(list, this);
-        viewPager.setAdapter(adapter);
+//        viewPager = (ViewPager)findViewById(R.id.viewPager) ;
+//        adapter = new RoomPagerAdapter(list, this);
+//        viewPager.setAdapter(adapter);
 
         wordEdit = (EditText)findViewById(R.id.edit_words);
         sayBtn = (Button)findViewById(R.id.btn_say);
@@ -96,7 +101,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
                         list.add(urlStr[i]);
                     }
                 }
-                adapter.notifyDataSetChanged();
+                multiPick.init(RoomActivity.this, MultiPickResultView.ACTION_ONLY_SHOW, (ArrayList<String>) list, 5, 0);
                 if(bean.getCommentInfo() != null){
                     commentInfos.addAll(bean.getCommentInfo());
                     commentAdapter.notifyDataSetChanged();
@@ -109,6 +114,11 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_say:
+                String remark = wordEdit.getText().toString().trim();
+                if(remark.equals("") || remark == null){
+                    Toast.makeText(this, "留言不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 goodsComment();
                 break;
             case R.id.friend_layout:
@@ -126,7 +136,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         }
     }
     private void goodsComment(){
-        String remark = wordEdit.getText().toString().trim();
+        final String remark = wordEdit.getText().toString().trim();
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.goodsComment(Integer.parseInt(goodsId), remark, userId);
         requestInterface.setCallback(new JsonCallback() {
@@ -137,7 +147,15 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onResponse(Object o, String message) throws IOException {
-                //
+                //成功把留言加载comments里，并更新
+                RoomBean.CommentInfo commentInfo = new RoomBean().new CommentInfo();
+                commentInfo.setUserComments(remark);
+                commentInfo.setUserPhone("");
+                commentInfos.add(commentInfo);
+                commentAdapter.notifyDataSetChanged();
+
+
+
             }
         });
     }

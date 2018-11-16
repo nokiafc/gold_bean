@@ -26,6 +26,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
     private String phone = DataUtil.getPreferences("userPhone", "");
     private String userId = DataUtil.getPreferences("userId", "");
+    private ImageView managerImg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        managerImg = (ImageView)view.findViewById(R.id.img_head) ;
+        managerImg.setOnClickListener(this);
         userPhone = (TextView)view.findViewById(R.id.text_phone_num) ;
         userPhone.setText(phone.substring(0,3)+"****"+phone.substring(7, 11));
         userIdText = (TextView)view.findViewById(R.id.text_id_num) ;
@@ -59,6 +62,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.img_conduct:
                 startConduct();
+                break;
+            case R.id.img_head://跳转设置页面
+                ActivityUtil.startActivity(getActivity(), SetActivity.class);
                 break;
         }
     }

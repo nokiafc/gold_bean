@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ConductRecyclerAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<GoodsQuestion> list;
+    private DeleteInterface delete;
     public ConductRecyclerAdapter(Context context, List<GoodsQuestion> list){
         this.context = context;
         this.list = list;
@@ -65,6 +67,24 @@ public class ConductRecyclerAdapter extends RecyclerView.Adapter {
 
             }
         });
+        if(list.size()>1){
+            h.deleteLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    delete.deleteItem(position);
+                }
+            });
+        }else {
+            h.deleteLayout.setVisibility(View.GONE);
+        }
+
+    }
+
+    public interface  DeleteInterface{
+        void deleteItem(int position);
+    }
+    public void setDeleteInterface(DeleteInterface d){
+        delete = d;
     }
 
     @Override
@@ -74,12 +94,13 @@ public class ConductRecyclerAdapter extends RecyclerView.Adapter {
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView textNum;
         EditText editAnswer, editQuestion;
-
+        RelativeLayout deleteLayout;
         public MyViewHolder(View itemView) {
             super(itemView);
             textNum = (TextView)itemView.findViewById(R.id.text_question);
             editQuestion = (EditText)itemView.findViewById(R.id.edit_question);
             editAnswer = (EditText)itemView.findViewById(R.id.edit_answer);
+            deleteLayout = (RelativeLayout)itemView.findViewById(R.id.delete_layout);
         }
     }
 }

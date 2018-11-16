@@ -41,6 +41,10 @@ public class BaseActivity extends Activity {
         });
     }
 
+    public void showRight(){
+        RelativeLayout rightLayout = (RelativeLayout)findViewById(R.id.layout_right);
+    }
+
     public void setEnterTransition(boolean enterT){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             if(enterT){

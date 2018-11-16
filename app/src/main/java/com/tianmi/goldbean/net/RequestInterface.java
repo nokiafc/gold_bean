@@ -104,5 +104,13 @@ public class RequestInterface extends BaseRequest {
         map.put("userId", userId);
         this.post("/user/getUserInfo", map, activity);
     }
+    //获取商品列表
+    public void getGoodsList(int goodsState, int  pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsState", goodsState);
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/manager/getGoodsApplys", map, activity);
+    }
 
 }

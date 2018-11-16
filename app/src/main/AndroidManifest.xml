@@ -55,6 +55,18 @@
         <activity android:name=".my.OpenActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name=".my.SetActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.ManagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.ManagerVerifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+
         <activity android:name=".my.StartConductActivity"/>
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
