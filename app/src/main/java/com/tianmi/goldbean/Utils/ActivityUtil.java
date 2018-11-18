@@ -34,6 +34,17 @@ public class ActivityUtil {
             curActivity.startActivity(intent);
         }
     }
+    public static void startActivity(Activity curActivity, Class<?> nextActivity, Bundle b){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
+            Intent intent = new Intent(curActivity, nextActivity);
+            intent.putExtras(b);
+            curActivity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(curActivity).toBundle());
+        }else {
+            Intent intent = new Intent(curActivity, nextActivity);
+            intent.putExtras(b);
+            curActivity.startActivity(intent);
+        }
+    }
     public static void nextActivity(Activity curActivity, Class<?> nextActivity, int requestCode, String str){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
             curActivity.startActivityForResult(new Intent(curActivity, nextActivity).putExtra("content", str), requestCode, ActivityOptions.makeSceneTransitionAnimation(curActivity).toBundle());

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.mob.MobSDK;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class GoldApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MobSDK.init(this);//初始sharedSdk
         initOkHttpClient();
         sp = getSharedPreferences("com.tianmi.goldbean", 0);
     }

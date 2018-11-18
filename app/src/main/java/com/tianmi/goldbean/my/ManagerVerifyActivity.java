@@ -30,7 +30,7 @@ public class ManagerVerifyActivity extends BaseActivity implements SwipeRefreshL
     private ListView listview;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ManagerVerifyAdapter adapter;
-    private List<ManagerVerifyBean> list = new ArrayList<ManagerVerifyBean>();
+    private List<ManagerVerifyBean> verifyList = new ArrayList<ManagerVerifyBean>();
     private int goodsState = 0;//待审核
     private String pageNo = "1";
     @Override
@@ -49,7 +49,7 @@ public class ManagerVerifyActivity extends BaseActivity implements SwipeRefreshL
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#00aeff"));
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        adapter = new ManagerVerifyAdapter(this, list);
+        adapter = new ManagerVerifyAdapter(this, verifyList);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,15 +74,17 @@ public class ManagerVerifyActivity extends BaseActivity implements SwipeRefreshL
     private void getGoodsList(int pageNo){
         RequestInterface request = new RequestInterface(this);
         request.getGoodsList(goodsState, pageNo, 10);
-        request.setCallback(new JsonCallback() {
+        request.setCallback(new JsonCallback<List<ManagerVerifyBean>>() {
             @Override
             public void onError(Request request, String e) {
                 swipeRefreshLayout.setRefreshing(false);//停止刷新
             }
 
             @Override
-            public void onResponse(Object o, String message) throws IOException {
+            public void onResponse(List<ManagerVerifyBean> list, String message) throws IOException {
                 swipeRefreshLayout.setRefreshing(false);
+                verifyList.addAll(list);
+                adapter.notifyDataSetChanged();
 
             }
         });
@@ -92,7 +94,7 @@ public class ManagerVerifyActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        list.clear();//下拉请求第一页数据
+        verifyList.clear();//下拉请求第一页数据
         getGoodsList(1);
     }
 }

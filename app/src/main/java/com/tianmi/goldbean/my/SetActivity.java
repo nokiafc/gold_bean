@@ -27,9 +27,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener{
     private void init(){
         managerLayout = (RelativeLayout)findViewById(R.id.manager_layout);
         managerLayout.setOnClickListener(this);
-//        if(userRole.equals("1")){//管理员显示出操作布局
+        if(userRole.equals("1")){//管理员显示出操作布局
             managerLayout.setVisibility(View.VISIBLE);
-//        }
+        }
         loginOut = (Button)findViewById(R.id.btn_confirm_cash);
         loginOut.setOnClickListener(new View.OnClickListener() {
             @Override

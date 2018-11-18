@@ -26,6 +26,7 @@ public class RechargeDialog implements View.OnClickListener {
     private TextView titleText;
     private String imgFlag = "1";
     private String title = "";
+    private MyPayCallBack payCallBack;
 
     public RechargeDialog(Activity activity, String title){
         this.activity = activity;
@@ -58,6 +59,13 @@ public class RechargeDialog implements View.OnClickListener {
         payCancelBtn.setOnClickListener(this);
     }
 
+        public interface MyPayCallBack{
+        void pay();
+    }
+    public void setPayCall(MyPayCallBack payCallBack){
+        this.payCallBack = payCallBack;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -82,8 +90,10 @@ public class RechargeDialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_confirm_recharge:
+                payCallBack.pay();
                 break;
             case R.id.btn_recharge_cancel:
+                myDialog.dismiss();
                 break;
         }
     }

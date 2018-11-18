@@ -112,5 +112,34 @@ public class RequestInterface extends BaseRequest {
         map.put("pageSize", pageSize);
         this.post("/manager/getGoodsApplys", map, activity);
     }
-
+    //管理员审核
+    public void shenhe(int userId, int goodsId, int goodsState){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsState", goodsState);
+        map.put("userId", userId);
+        map.put("goodsId", goodsId);
+        this.post("/manager/audit", map, activity);
+    }
+    //管理员获取用户信息
+    public void managerGetUserInfo(String userPhone, int  pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userPhone", userPhone);
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/manager/getUsers", map, activity);
+    }
+    //移除管理员全选
+    public void removeSonManager(int userManageId, int loginUserId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userManageId", userManageId);
+        map.put("loginUserId", loginUserId);
+        this.post("/manager/removeManager", map, activity);
+    }
+    //设置管理员
+    public void addSonManager(int userManageId, int loginUserId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userManageId", userManageId);
+        map.put("loginUserId", loginUserId);
+        this.post("/manager/setManager", map, activity);
+    }
 }

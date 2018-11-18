@@ -36,7 +36,7 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
                 ActivityUtil.startActivity(this, ManagerVerifyActivity.class);
                 break;
             case R.id.manager_add://添加子管理员
-
+                ActivityUtil.startActivity(this, SonActivity.class);
                 break;
         }
     }
