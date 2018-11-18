@@ -20,4 +20,10 @@ public class DataUtil {
         String value = GoldApplication.getSP().getString(key, defaultValue);
         return value;
     }
+    public static void clear(){
+        Editor editor =  GoldApplication.getSP().edit();
+        editor.clear();
+        editor.commit();
+
+    }
 }

@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.main.MainFragment;
@@ -21,16 +22,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTransaction transaction;
     private Fragment mainFragment, messageFragment, myFragment;
     private ImageView mainImg, messageImg, myImg;
+    private TextView titleText;
+    private RelativeLayout titleLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setEnterTransitionFade(true);
         setContentView(R.layout.activity_main);
-
         init();
     }
     private void init(){
+        titleLayout = (RelativeLayout)findViewById(R.id.main_base_title_layout);
+        titleText = (TextView)findViewById(R.id.text_title) ;
+        titleText.setText("捞金豆");
+
         mainImg = (ImageView)findViewById(R.id.img_main);
         messageImg = (ImageView)findViewById(R.id.img_message);
         myImg = (ImageView)findViewById(R.id.img_my);
@@ -57,12 +63,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         int id = v.getId();
         if(id == R.id.layout_main){
+            titleText.setText("捞金豆");
+            titleLayout.setVisibility(View.VISIBLE);
+
             showMainFragment();
 
         }else if(id == R.id.layout_message){
+            titleText.setText("消息");
+            titleLayout.setVisibility(View.VISIBLE);
             showMessageFragment();
 
         }else if(id == R.id.layout_my){
+            titleLayout.setVisibility(View.GONE);
             showMyFragment();
 
         }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -89,7 +90,7 @@ public class RechargeDialog implements View.OnClickListener {
                     wechatImg.setImageResource(R.drawable.icon_pay_choose);
                 }
                 break;
-            case R.id.btn_confirm_recharge:
+            case R.id.btn_recharge_confirm:
                 payCallBack.pay();
                 break;
             case R.id.btn_recharge_cancel:

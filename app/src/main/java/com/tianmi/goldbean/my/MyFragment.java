@@ -14,9 +14,14 @@ import android.widget.TextView;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.bean.MyInfoBean;
+import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 
+import java.io.IOException;
+
 import me.iwf.photopicker.widget.MultiPickResultView;
+import okhttp3.Request;
 
 public class MyFragment extends Fragment implements View.OnClickListener {
     private Button rechargeBtn, cashBtn;
@@ -27,6 +32,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String phone = DataUtil.getPreferences("userPhone", "");
     private String userId = DataUtil.getPreferences("userId", "");
     private ImageView managerImg;
+    private TextView accountText, allPersonText, monPersonText;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +43,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        accountText = (TextView)view.findViewById(R.id.text_gold_num) ;
+        allPersonText = (TextView)view.findViewById(R.id.text_recommend_num);
+        monPersonText = (TextView)view.findViewById(R.id.text_recommend_month) ;
+
         managerImg = (ImageView)view.findViewById(R.id.img_head) ;
         managerImg.setOnClickListener(this);
         userPhone = (TextView)view.findViewById(R.id.text_phone_num) ;
@@ -83,6 +94,21 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void getMyInfo(){
         RequestInterface requestInterface = new RequestInterface(getActivity());
         requestInterface.getMyInfo(Integer.parseInt(userId));
+        requestInterface.setCallback(new JsonCallback<MyInfoBean>() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(MyInfoBean bean, String message) throws IOException {
+                if(bean != null){
+                    accountText.setText(bean.getAccountBalance());
+                    allPersonText.setText("总计"+bean.getTotalCount()+"人");
+                    monPersonText.setText("总计"+bean.getMonthCount()+"人");
+                }
+            }
+        });
     }
 
     @Override

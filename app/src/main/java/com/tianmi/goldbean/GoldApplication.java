@@ -18,6 +18,7 @@ public class GoldApplication extends Application {
     public static Gson gson;
     private List<Activity> startList = new LinkedList<Activity>();
     public static GoldApplication goldInstance;
+    private List<Activity> outList = new LinkedList<Activity>();
 
     public static SharedPreferences sp;
     @Override
@@ -45,6 +46,16 @@ public class GoldApplication extends Application {
 
     public void addActivity(Activity activity) {
         startList.add(activity);
+    }
+
+    public void finishOutActivity(){
+        for (Activity activity : outList) {
+            activity.finish();
+        }
+        outList.clear();
+    }
+    public void addOutActivity(Activity activity){
+        outList.add(activity);
     }
     private void initOkHttpClient() {
         gson = new Gson();

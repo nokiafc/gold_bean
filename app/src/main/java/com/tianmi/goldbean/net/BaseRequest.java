@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.JsonReader;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,15 +129,25 @@ public class BaseRequest {
                                     data = jsonObject.getString("data");
                                     if (!data.equals("null")) {
                                         Log.d("FC", "data----" + data);
+                                        if(data.contains("{") || data.contains("[")){
+                                            Message msg = Message.obtain();
+                                            Object object = gson.fromJson(data, jsonCallback.getType());
 
-                                        Message msg = Message.obtain();
-                                        Object object = gson.fromJson(data, jsonCallback.getType());
+                                            msg.what = SUCCESS_RESULT;
+                                            msg.obj = object;
+                                            handler.sendMessage(msg);
+                                        }else {//直接返回
+                                            Message msg = Message.obtain();
 
-                                        msg.what = SUCCESS_RESULT;
-                                        msg.obj = object;
+                                            msg.what = SUCCESS_RESULT;
+                                            msg.obj = data;
+                                            handler.sendMessage(msg);
+                                        }
 
 
-                                        handler.sendMessage(msg);
+
+
+
                                     } else {
                                         Message msg = Message.obtain();
                                         msg.what = SUCCESS_NO_RESULT;

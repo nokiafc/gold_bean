@@ -39,6 +39,11 @@ public class RequestInterface extends BaseRequest {
         map.put("recommendCod", recommendCod);
         this.post("/register", map , activity);
     }
+    public void loginOut(int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        this.post("/user/logout", map , activity);
+    }
     public void openMerchant(int userId, String merchantsName, String merchantsAddr, String merchantsPhone, String merchantsWx){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
@@ -128,7 +133,7 @@ public class RequestInterface extends BaseRequest {
         map.put("pageSize", pageSize);
         this.post("/manager/getUsers", map, activity);
     }
-    //移除管理员全选
+    //移除管理员
     public void removeSonManager(int userManageId, int loginUserId){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManageId", userManageId);
@@ -141,5 +146,12 @@ public class RequestInterface extends BaseRequest {
         map.put("userManageId", userManageId);
         map.put("loginUserId", loginUserId);
         this.post("/manager/setManager", map, activity);
+    }
+
+    public void alipay(int userId, String amount){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("amount", amount);
+        this.post("/user/zfb_recharge", map, activity);
     }
 }

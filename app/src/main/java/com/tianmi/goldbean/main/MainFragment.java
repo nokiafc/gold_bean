@@ -42,6 +42,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
         getMainInfo();
+
         return view;
     }
     private void getMainInfo(){

@@ -20,6 +20,7 @@ public class BaseActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
+        GoldApplication.getAppInstance().addOutActivity(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
