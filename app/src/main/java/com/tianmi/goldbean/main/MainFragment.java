@@ -1,8 +1,12 @@
 package com.tianmi.goldbean.main;
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.adapter.MainPagerAdapter;
@@ -34,16 +39,49 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private LinearLayout dotLayout;
     private RecyclerView recyclerView;
     private MainRecyclerAdapter mainRecyclerAdapter;
-
-
     private ImageView[] imageViews;
+    private TextView title;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
+        checkPermission();
         getMainInfo();
 
         return view;
+    }
+
+    private void checkPermission() {
+        int readStoragePermissionState = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (readStoragePermissionState != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            } else {
+                String[] permissions;
+                permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+                ActivityCompat.requestPermissions(getActivity(), permissions, 0);
+            }
+        } else {
+
+        }
+        int writePermission = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (writePermission != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                if (writePermission != PackageManager.PERMISSION_GRANTED) {
+                    String[] permissionss = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    ActivityCompat.requestPermissions(getActivity(), permissionss, 0);
+                }
+
+
+            }
+        } else {
+
+        }
+
     }
     private void getMainInfo(){
         RequestInterface requestInterface = new RequestInterface(getActivity());
@@ -63,6 +101,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
     }
     private void init(View view){
+        title = (TextView)view.findViewById(R.id.text_title);
+        title.setText("捞金豆");
         for(int i=0; i<1;i++){
             PagerBean bean = new PagerBean();
             list.add(bean);

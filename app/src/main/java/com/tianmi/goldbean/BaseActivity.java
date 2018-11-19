@@ -15,18 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tianmi.goldbean.Utils.ActivityUtil;
+
 public class BaseActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         GoldApplication.getAppInstance().addOutActivity(this);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
+        ActivityUtil.setStatusBarColor(this, "#ffffff");
     }
 
     public void initTitle(String name){
@@ -43,7 +40,7 @@ public class BaseActivity extends Activity {
     }
 
     public void showRight(){
-        RelativeLayout rightLayout = (RelativeLayout)findViewById(R.id.layout_right);
+//        RelativeLayout rightLayout = (RelativeLayout)findViewById(R.id.layout_right);
     }
 
     public void setEnterTransition(boolean enterT){
@@ -81,13 +78,5 @@ public class BaseActivity extends Activity {
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        GoldApplication.getAppInstance().finishActivity();
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-                finishAfterTransition();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 }

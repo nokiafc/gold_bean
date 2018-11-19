@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/text_color_3"
         android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/text_phone"
@@ -40,6 +41,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/text_color_3"
         >
         <TextView
             android:id="@+id/text_verify_code"
@@ -74,7 +76,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        >
+        android:background="@color/text_color_3">
         <TextView
             android:id="@+id/text_company_phone"
             android:layout_width="wrap_content"
@@ -106,6 +108,17 @@
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/text_erwei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_color_5"
+        android:layout_centerVertical="true"
+        android:text="上传微信二维码"/>
+
         <me.iwf.photopicker.widget.MultiPickResultView
             android:id="@+id/up_photo_album"
             android:layout_width="match_parent"
@@ -114,15 +127,7 @@
             android:layout_marginRight="15dp"
 
             />
-    <TextView
-        android:id="@+id/text_erwei"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/text_color_5"
-        android:layout_centerVertical="true"
-        android:text="上传二维码"/>
+
 
 
 

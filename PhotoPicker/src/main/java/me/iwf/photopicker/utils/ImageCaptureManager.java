@@ -65,7 +65,7 @@ public class ImageCaptureManager {
     if (takePictureIntent.resolveActivity(mContext.getPackageManager()) != null) {
       // Create the File where the photo should go
       File photoFile = createImageFile();
-      Uri uri = FileProvider.getUriForFile(mContext,"com.carmortgage.android.fileProvider", photoFile);
+      Uri uri = FileProvider.getUriForFile(mContext,"com.tianmi.goldbean.fileProvider", photoFile);
       // Continue only if the File was successfully created
       if (photoFile != null) {
         takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

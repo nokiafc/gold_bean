@@ -160,7 +160,7 @@ public class BaseRequest {
                                     handler.sendMessage(msg);
                                 }
 
-                            }else if(statusCode.equals("410000")){
+                            }else if(statusCode.equals("4100000")){
                                 Message msg = Message.obtain();
                                 msg.what = TOKEN_OVERDUE;
                                 handler.sendMessage(msg);
@@ -241,8 +241,9 @@ public class BaseRequest {
                                     handler.sendMessage(msg);
                                 }
 
-                            }else if(statusCode.equals("410000")){
+                            }else if(statusCode.equals("4100000")){
                                 Message msg = Message.obtain();
+                                Log.d("FC", "====41000");
                                 msg.what = TOKEN_OVERDUE;
                                 handler.sendMessage(msg);
                             }else {

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/text_color_3">
+    <include layout="@layout/layout_fragment_base_title"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
@@ -54,7 +55,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"/>
 
 </LinearLayout>

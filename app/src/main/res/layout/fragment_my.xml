@@ -71,16 +71,16 @@
             android:layout_marginTop="13dp"
             android:textColor="@color/text_color_8"
             android:textSize="13dp"/>
+
         <TextView
             android:id="@+id/text_gold_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30000"
             android:layout_below="@+id/text_gold_bean"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="7dp"
             android:textColor="@color/text_color_5"
-            android:textSize="19dp"/>
+            android:textSize="19dp" />
         <Button
             android:id="@+id/btn_recharge"
             android:layout_width="61dp"
@@ -136,14 +136,14 @@
             android:src="@drawable/icon_my_recommend"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="40dp"/>
+
         <TextView
             android:id="@+id/text_recommend_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:layout_below="@+id/img_recommend"
-            android:layout_marginTop="5dp"
-            android:text="总计112人"/>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp" />
         <ImageView
             android:id="@+id/img_recommend_month"
             android:layout_width="18dp"
@@ -151,15 +151,15 @@
             android:src="@drawable/icon_my_add"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"/>
+
         <TextView
             android:id="@+id/text_recommend_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/img_recommend"
-            android:layout_marginTop="5dp"
-            android:text="总计112人"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp" />
         <ImageView
             android:layout_width="10dp"
             android:layout_height="78dp"
