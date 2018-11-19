@@ -154,4 +154,20 @@ public class RequestInterface extends BaseRequest {
         map.put("amount", amount);
         this.post("/user/zfb_recharge", map, activity);
     }
+    //账户流水消息
+    public void getAccount(int userId, int pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/user/getAccount", map, activity);
+    }
+    //商品审核上架消息
+    public void getGoodsMsg(int userId, int pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/user/getGoodsMsg", map, activity);
+    }
 }

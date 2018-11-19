@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="main_background">#f6f8fb</color>
+
     <color name="login_name">#fd4a47</color>
     <color name="shape_line">#e8e8e8</color>
     <color name="shape_background">#f4f4f4</color>
@@ -22,6 +24,8 @@
     <color name="text_color_8">#656363</color>
     <color name="text_color_9">#909090</color>
     <color name="text_color_10">#7dffffff</color>
+
+    <color name="textColor_11">#5f616b</color>
     <color name="black_toolbar">#2d2c32</color>
 
     <color name="red_background">#FFF5F6</color>
