@@ -170,4 +170,11 @@ public class RequestInterface extends BaseRequest {
         map.put("pageSize", pageSize);
         this.post("/user/getGoodsMsg", map, activity);
     }
+    //提现申请
+    public void cash(int userId, String amount){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("amount", amount);
+        this.post("/user/withdrowApply", map, activity);
+    }
 }

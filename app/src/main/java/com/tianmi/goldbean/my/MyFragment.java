@@ -69,7 +69,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 ActivityUtil.startActivity(getActivity(), RechargeActivity.class);
                 break;
             case R.id.btn_cash://提现
-                ActivityUtil.startActivity(getActivity(), CashActivity.class);
+                ActivityUtil.startActivity(getActivity(), CashActivity.class, accountText.getText().toString());
                 break;
             case R.id.img_conduct:
                 startConduct();

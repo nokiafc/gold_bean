@@ -39,6 +39,9 @@
         <activity android:name=".main.RoomActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".main.AnswerCorrectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".my.RechargeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

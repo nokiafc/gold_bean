@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.drawable.RoundedCornersDrawable;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.ActivityUtil;
+import com.tianmi.goldbean.Utils.GlideRoundTransform;
 import com.tianmi.goldbean.main.RoomActivity;
 import com.tianmi.goldbean.net.bean.RecyclerBean;
 
@@ -44,8 +46,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         MyViewHolder holder1 = (MyViewHolder)holder;
         String url = list.get(position).getGoodsUrl();
         String urls[] = url.split(",");
+
+
         Glide.with(context)
                 .load(urls[1])
+                .transform(new GlideRoundTransform(context, 10))
                 .placeholder(R.drawable.img_fail)
                 .error(R.drawable.img_fail)
                 .into(holder1.img);
@@ -55,7 +60,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         holder1.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtil.startActivity((Activity) context, RoomActivity.class, list.get(position).getId()+"");
+                Bundle b = new Bundle();
+                b.putSerializable("bean", list.get(position));
+                ActivityUtil.startActivity((Activity) context, RoomActivity.class, b);
             }
         });
     }

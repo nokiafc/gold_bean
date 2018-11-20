@@ -69,6 +69,9 @@ public class RechargeDialog implements View.OnClickListener {
     public void setPayCall(MyPayCallBack payCallBack){
         this.payCallBack = payCallBack;
     }
+    public void hintWechat(){
+        wechatLayout.setVisibility(View.INVISIBLE);
+    }
 
     @Override
     public void onClick(View v) {

@@ -49,7 +49,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
     private List<String> picUrls = new ArrayList<String>();
     private RecyclerView  recycleview;
     private ConductRecyclerAdapter adapter;
-    private EditText redNumEdit, redMoneyEdit;
+    private EditText redNumEdit, redMoneyEdit, jieshaoEdit;
     private String userId = DataUtil.getPreferences("userId", "");
     private int photoNum = 0;
     private int startNum = 0;
@@ -76,6 +76,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         init();
     }
     private void init(){
+        jieshaoEdit = (EditText)findViewById(R.id.edit_jieshao);
         rightLayout = (RelativeLayout)findViewById(R.id.layout_right);
         rightLayout.setOnClickListener(this);
         rightLayout.setVisibility(View.VISIBLE);
@@ -107,11 +108,16 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         upAlbum.init(this, MultiPickResultView.ACTION_SELECT, null, 5, 1);
     }
     //提交商家设置
-    private String redNum, allMoney;
+    private String redNum, allMoney, jieshao;
     private void commit(){
         redNum = redNumEdit.getText().toString().trim();
         allMoney = redMoneyEdit.getText().toString().trim();
+        jieshao = jieshaoEdit.getText().toString().trim();
         //1.检查必填项目
+        if(jieshao == null || jieshao.equals("")){
+            Toast.makeText(this, "商品说明不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(photos.size() < 1){
             Toast.makeText(this, "商家宣传图片数量需大于1张", Toast.LENGTH_SHORT).show();
             return;
@@ -172,8 +178,8 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
             }
             allUrl = allUrl+","+picUrls.get(i);
         }
-        Log.d("FC", allUrl+"====");
         userGoods.setGoodsUrl(allUrl);
+        userGoods.setGoodsName(jieshao);
         //设置红包信息
         RedPackage redPackage = new RedPackage();
         redPackage.setRedWay(flag);
@@ -187,6 +193,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         requestInterface.setCallback(new JsonCallback() {
             @Override
             public void onError(Request request, String e) {
+                Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
                 myDialog.dismiss();
             }
 
@@ -208,9 +215,6 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
                 upAlbum.onActivityResult(requestCode, resultCode, data);
                 photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 photoNum = photos.size();
-                for(int i=0; i<photos.size(); i++){
-                    Log.d("FC", i+"---"+photos.get(i));
-                }
             }
 
 

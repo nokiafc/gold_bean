@@ -17,6 +17,7 @@ import android.view.WindowManager;
  */
 
 public class ActivityUtil {
+    //改变状态栏颜色
     public static void setStatusBarColor(Activity activity,  String colorString){
         Window window = activity.getWindow();
         //取消状态栏透明
@@ -35,6 +36,8 @@ public class ActivityUtil {
             ViewCompat.requestApplyInsets(mChildView);
         }
     }
+    //设置glide图片的圆角
+
 
 
 
@@ -50,6 +53,7 @@ public class ActivityUtil {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
             Intent intent = new Intent(curActivity, nextActivity);
             intent.putExtra("key", str);
+
             curActivity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(curActivity).toBundle());
         }else {
             Intent intent = new Intent(curActivity, nextActivity);

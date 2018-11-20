@@ -23,6 +23,7 @@ import com.tianmi.goldbean.adapter.RoomPagerAdapter;
 import com.tianmi.goldbean.my.MerchantInfoActivity;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
+import com.tianmi.goldbean.net.bean.RecyclerBean;
 import com.tianmi.goldbean.net.bean.RoomBean;
 
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
     private CommentAdapter commentAdapter;
     private List<RoomBean.CommentInfo> commentInfos = new ArrayList<RoomBean.CommentInfo>();
     private MultiPickResultView multiPick;
+    private String goodsName = "";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +60,15 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         setEnterTransition(true);
         setContentView(R.layout.activity_room);
         initTitle("商品详情");
-        goodsId = (String)getIntent().getExtras().get("key");
+        RecyclerBean bean = (RecyclerBean)getIntent().getExtras().getSerializable("bean");
+        goodsName = bean.getGoodsName()+"";
+        goodsId = bean.getId()+"";
         init();
         getGoodsDetail();
     }
     private void init(){
         merchantContent = (TextView)findViewById(R.id.merchant_content) ;
+        merchantContent.setText(goodsName);
         multiPick = (MultiPickResultView)findViewById(R.id.multiPick);
 
         sayListView = (ListView)findViewById(R.id.say_listview);

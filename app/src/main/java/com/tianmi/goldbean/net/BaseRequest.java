@@ -130,7 +130,6 @@ public class BaseRequest {
                                     if (!data.equals("")) {
                                         Log.d("FC", "data----" + data);
                                         if(data.contains("{") || data.contains("[")){
-                                            Log.d("FC", "有data的");
                                             Message msg = Message.obtain();
                                             Object object = gson.fromJson(data, jsonCallback.getType());
 

@@ -1,6 +1,8 @@
 package com.tianmi.goldbean.net.bean;
 
-public class RecyclerBean {
+import java.io.Serializable;
+
+public class RecyclerBean implements Serializable{
 
     /**
      * id : 1

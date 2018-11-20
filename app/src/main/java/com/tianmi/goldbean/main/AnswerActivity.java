@@ -1,5 +1,6 @@
 package com.tianmi.goldbean.main;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,7 +12,9 @@ import android.widget.Toast;
 
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.bean.AnswerBean;
 import com.tianmi.goldbean.bean.QuestionAnswer;
 import com.tianmi.goldbean.net.JsonCallback;
@@ -39,6 +42,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(true);
         setContentView(R.layout.activity_answer);
         goodsId = getIntent().getStringExtra("goodsId");
         initTitle("答题");
@@ -59,6 +63,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
         requestInterface.setCallback(new JsonCallback<List<QuestionBean>>() {
             @Override
             public void onError(Request request, String e) {
+                Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -90,7 +95,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
 
                 QuestionAnswer bean = new QuestionAnswer();
                 bean.setQuestionAnswer(answer);
-                bean.setQuestionId(index);
+                bean.setQuestionId(questionList.get(index-1).getId());
                 bean.setUserId(Integer.parseInt(userId));
                 answerBeans.add(bean);
 
@@ -108,10 +113,28 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
-
+    private Dialog myDialog ;
     private void answer(){
+        myDialog = MyDialog.createLoadingDialog(this, "提交中...");
+        myDialog.show();
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.answer(answerBeans, Integer.parseInt(userId), Integer.parseInt(goodsId));
+        requestInterface.setCallback(new JsonCallback() {
+            @Override
+            public void onError(Request request, String e) {
+                myDialog.dismiss();
+                Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Object o, String message) throws IOException {
+                myDialog.dismiss();
+                ActivityUtil.startActivity(AnswerActivity.this, AnswerCorrectActivity.class, o+"");
+                finishAfterTransition();
+                Log.d("FC", o+"");
+
+            }
+        });
 
     }
 }
