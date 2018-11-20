@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_background"
-    android:id="@+id/read_swipe">
+    android:id="@+id/merchant_swipe">
 
     <ListView
-        android:id="@+id/read_list"
+        android:id="@+id/merchant_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"

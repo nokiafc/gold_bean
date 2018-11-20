@@ -67,7 +67,12 @@
         <activity android:name=".my.SonActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity android:name=".message.MessageItemActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".message.MessageMerchantItemActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".my.StartConductActivity"/>
         <activity

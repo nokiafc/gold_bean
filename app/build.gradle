@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
+//apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 26
@@ -19,22 +19,22 @@ android {
     }
     buildToolsVersion '28.0.3'
 }
-MobSDK {
-    appKey "28c6b18268740"
-    appSecret "0f785ef87be1857149c13cad4baf1f74"
-
-    ShareSDK {
-        devInfo {
-            Wechat {
-                id "1"
-                sortId "1"
-                appId "wx4f059b07213f6ac8"
-                appSecret "3bea529661358c6f85915cafab730ccd"
-            }
-        }
-    }
-
-}
+//MobSDK {
+//    appKey "28c6b18268740"
+//    appSecret "0f785ef87be1857149c13cad4baf1f74"
+//
+//    ShareSDK {
+//        devInfo {
+//            Wechat {
+//                id "1"
+//                sortId "1"
+//                appId "wx4f059b07213f6ac8"
+//                appSecret "3bea529661358c6f85915cafab730ccd"
+//            }
+//        }
+//    }
+//
+//}
 
 dependencies {
 

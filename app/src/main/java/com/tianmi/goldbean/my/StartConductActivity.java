@@ -149,7 +149,8 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         baseRequest.setCallback(new JsonCallback<String>() {
             @Override
             public void onError(Request request, String e) {
-
+                myDialog.dismiss();
+                Toast.makeText(StartConductActivity.this, e, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -171,6 +172,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
             }
             allUrl = allUrl+","+picUrls.get(i);
         }
+        Log.d("FC", allUrl+"====");
         userGoods.setGoodsUrl(allUrl);
         //设置红包信息
         RedPackage redPackage = new RedPackage();
@@ -206,6 +208,9 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
                 upAlbum.onActivityResult(requestCode, resultCode, data);
                 photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 photoNum = photos.size();
+                for(int i=0; i<photos.size(); i++){
+                    Log.d("FC", i+"---"+photos.get(i));
+                }
             }
 
 

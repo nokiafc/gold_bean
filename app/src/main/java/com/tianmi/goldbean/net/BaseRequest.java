@@ -127,9 +127,10 @@ public class BaseRequest {
                                 String data;
                                 if (jsonObject.has("data")) {
                                     data = jsonObject.getString("data");
-                                    if (!data.equals("null")) {
+                                    if (!data.equals("")) {
                                         Log.d("FC", "data----" + data);
                                         if(data.contains("{") || data.contains("[")){
+                                            Log.d("FC", "有data的");
                                             Message msg = Message.obtain();
                                             Object object = gson.fromJson(data, jsonCallback.getType());
 

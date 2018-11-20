@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.alipay.sdk.app.PayTask;
-import com.mob.wrappers.PaySDKWrapper;
+//import com.alipay.sdk.app.PayTask;
+//import com.mob.wrappers.PaySDKWrapper;
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
@@ -73,6 +73,7 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
         initTitle("充值");
         init();
     }
+    private RechargeDialog dialog;
     private void init(){
         numEdit = (EditText)findViewById(R.id.num_edit);
         rechargeBtn = (Button)findViewById(R.id.btn_confirm_recharge);
@@ -84,7 +85,7 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
                     Toast.makeText(RechargeActivity.this, "请输入正确的充值金额", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                RechargeDialog dialog = new RechargeDialog(RechargeActivity.this, "选择支付方式");
+                dialog = new RechargeDialog(RechargeActivity.this, "选择支付方式");
                 dialog.setPayCall(RechargeActivity.this);
                 dialog.showDialog();
             }
@@ -93,6 +94,7 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
 
     @Override
     public void pay() {
+        dialog.dismiss();
         alipay(Integer.parseInt(numEdit.getText().toString()));
     }
     private void alipay(int amount){
@@ -106,30 +108,30 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
 
             @Override
             public void onResponse(Object object, String message) throws IOException {
-                showAlipay((String)object);
+                //showAlipay((String)object);
             }
         });
 
     }
-    private void showAlipay(final String orderInfo){
-        Runnable payRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                PayTask alipay = new PayTask(RechargeActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.i("msp", result.toString());
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
+//    private void showAlipay(final String orderInfo){
+//        Runnable payRunnable = new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                PayTask alipay = new PayTask(RechargeActivity.this);
+//                Map<String, String> result = alipay.payV2(orderInfo, true);
+//                Log.i("msp", result.toString());
+//
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
+//            }
+//        };
+//
+//        Thread payThread = new Thread(payRunnable);
+//        payThread.start();
+//    }
 
 
     private static void showAlert(Context ctx, String info) {

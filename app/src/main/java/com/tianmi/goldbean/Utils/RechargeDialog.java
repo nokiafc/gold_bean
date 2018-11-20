@@ -45,6 +45,9 @@ public class RechargeDialog implements View.OnClickListener {
         myDialog.setContentView(dialog);
         myDialog.show();
     }
+    public void dismiss(){
+        myDialog.dismiss();
+    }
     private void initViews(View view) {
         titleText = (TextView)view.findViewById(R.id.text_title);
         titleText.setText(title);

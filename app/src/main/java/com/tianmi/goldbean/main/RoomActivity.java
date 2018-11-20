@@ -29,10 +29,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
-import cn.sharesdk.wechat.friends.Wechat;
+//import cn.sharesdk.framework.Platform;
+//import cn.sharesdk.onekeyshare.OnekeyShare;
+//import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
+//import cn.sharesdk.wechat.friends.Wechat;
 import me.iwf.photopicker.widget.MultiPickResultView;
 import okhttp3.Request;
 
@@ -127,7 +127,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.friend_layout:
                 //分享到朋友圈
-                showShare();
+//                showShare();
                 break;
             case R.id.merchant_layout:
                 //跳转商家信息页
@@ -141,41 +141,41 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-        private void showShare() {
-            OnekeyShare oks = new OnekeyShare();
-            //关闭sso授权
-            oks.disableSSOWhenAuthorize();
-
-            // title标题，微信、QQ和QQ空间等平台使用
-            oks.setTitle("捞金豆");
-            // titleUrl QQ和QQ空间跳转链接
-            oks.setTitleUrl("http://sharesdk.cn");
-            // text是分享文本，所有平台都需要这个字段
-            oks.setText("我是分享文本");
-            // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-            oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-            // url在微信、微博，Facebook等平台中使用
-            oks.setUrl("http://sharesdk.cn");
-            // comment是我对这条分享的评论，仅在人人网使用
-            oks.setComment("我是测试评论文本");
-           oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
-               @Override
-               public void onShare(Platform platform, Platform.ShareParams shareParams) {
-                   if (Wechat.NAME.equals(platform.getName())) {
-                       Log.d("FC", platform.getName());
-                       shareParams.setShareType(Platform.SHARE_WEBPAGE);
-                       shareParams.setUrl("www.baidu.com");
-                       shareParams.setText("捞金豆");
-                       shareParams.setImageUrl("/sdcard/test.jpg");
-                       shareParams.setTitle("捞金豆哈哈哈");
-                   }
-
-               }
-           });
-            // 启动分享GUI
-            oks.show(this);
-
-    }
+//        private void showShare() {
+//            OnekeyShare oks = new OnekeyShare();
+//            //关闭sso授权
+//            oks.disableSSOWhenAuthorize();
+//
+//            // title标题，微信、QQ和QQ空间等平台使用
+//            oks.setTitle("捞金豆");
+//            // titleUrl QQ和QQ空间跳转链接
+//            oks.setTitleUrl("http://sharesdk.cn");
+//            // text是分享文本，所有平台都需要这个字段
+//            oks.setText("我是分享文本");
+//            // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//            oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+//            // url在微信、微博，Facebook等平台中使用
+//            oks.setUrl("http://sharesdk.cn");
+//            // comment是我对这条分享的评论，仅在人人网使用
+//            oks.setComment("我是测试评论文本");
+//           oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+//               @Override
+//               public void onShare(Platform platform, Platform.ShareParams shareParams) {
+//                   if (Wechat.NAME.equals(platform.getName())) {
+//                       Log.d("FC", platform.getName());
+//                       shareParams.setShareType(Platform.SHARE_WEBPAGE);
+//                       shareParams.setUrl("www.baidu.com");
+//                       shareParams.setText("捞金豆");
+//                       shareParams.setImageUrl("/sdcard/test.jpg");
+//                       shareParams.setTitle("捞金豆哈哈哈");
+//                   }
+//
+//               }
+//           });
+//            // 启动分享GUI
+//            oks.show(this);
+//
+//    }
     private void goodsComment(){
         final String remark = wordEdit.getText().toString().trim();
         RequestInterface requestInterface = new RequestInterface(this);

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -60,6 +61,7 @@ public class ManagerVerifyItemActivity extends BaseActivity implements View.OnCl
             ArrayList<String> list = new ArrayList<String>();
             for(int i=0; i<url.length; i++){
                 list.add(url[i]);
+                Log.d("FC", url[i]);
 
             }
 

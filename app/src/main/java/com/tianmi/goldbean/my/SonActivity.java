@@ -54,11 +54,11 @@ public class SonActivity extends BaseActivity implements View.OnClickListener{
         userPhone = phoneEdit.getText().toString().trim();
         switch (v.getId()){
 
-            case R.id.delete_btn:
+            case R.id.add_btn:
                 flag = "1";
                 getUsers(userPhone, flag);
                 break;
-            case R.id.add_btn://添加子管理员, 需要先通过手机号查询出userid，然后调接口添加
+            case R.id.delete_btn://添加子管理员, 需要先通过手机号查询出userid，然后调接口添加
                 flag = "0";
                 getUsers(userPhone, flag);
                 break;
