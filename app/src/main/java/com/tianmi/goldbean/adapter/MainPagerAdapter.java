@@ -14,9 +14,9 @@ import com.tianmi.goldbean.bean.PagerBean;
 import java.util.List;
 
 public class MainPagerAdapter extends PagerAdapter {
-    private List<PagerBean> list;
+    private List<String> list;
     private Context context;
-    public MainPagerAdapter(List<PagerBean> list, Context context){
+    public MainPagerAdapter(List<String> list, Context context){
         this.list = list;
         this.context = context;
     }
