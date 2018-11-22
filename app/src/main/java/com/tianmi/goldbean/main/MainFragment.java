@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -50,6 +51,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         init(view);
         checkPermission();
         getMainInfo(1);
+        String sdPath = Environment.getExternalStorageDirectory() + "/";
+        Log.d("FC", sdPath);
         return view;
     }
 

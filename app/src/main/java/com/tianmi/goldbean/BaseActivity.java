@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.Utils.ActivityUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class BaseActivity extends Activity {
     @Override
@@ -76,5 +77,17 @@ public class BaseActivity extends Activity {
                 getWindow().setExitTransition(slide);
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
     }
 }

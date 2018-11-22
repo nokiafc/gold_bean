@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.umeng.commonsdk.UMConfigure;
 //import com.mob.MobSDK;
 
 import java.util.LinkedList;
@@ -25,6 +26,8 @@ public class GoldApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        MobSDK.init(this);//初始sharedSdk
+        UMConfigure.init(this, "5bf6ad36b465f5c37d0000e6", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.setLogEnabled(true);
         initOkHttpClient();
         sp = getSharedPreferences("com.tianmi.goldbean", 0);
     }
