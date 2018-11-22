@@ -72,7 +72,6 @@ public class AccountFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (firstVisibleItem == 0) {
-                    Log.d("FC", "===");
                     View firstVisibleItemView = listview.getChildAt(0);
                     if (firstVisibleItemView != null && firstVisibleItemView.getTop() == 0) {
                     }

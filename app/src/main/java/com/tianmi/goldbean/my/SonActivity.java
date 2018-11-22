@@ -30,6 +30,7 @@ public class SonActivity extends BaseActivity implements View.OnClickListener{
     private String userPhone ;
     private String userId = DataUtil.getPreferences("userId", "");
     private Dialog myDialog;
+    private String flag = "1";//1是添加，0是删除
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class SonActivity extends BaseActivity implements View.OnClickListener{
 
         }
     }
-    private String flag = "1";//1是添加，0是删除
+
     public void getUsers(String userPhone, final String flag){
         if(userPhone == null || userPhone.equals("")){
             Toast.makeText(this, "请输入正确手机号", Toast.LENGTH_SHORT).show();

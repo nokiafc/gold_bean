@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,6 +42,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private MainListAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int pageNo = 1;
+    private int pageSize = 10;
+    private View footerView;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
@@ -51,21 +54,52 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     }
 
     private void init(View view){
+        title = (TextView)view.findViewById(R.id.text_title);
+        title.setText("捞金豆");
+
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.main_swipe);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#00aeff"));
         swipeRefreshLayout.setOnRefreshListener(this);
+
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.header_main_list, null);
         listView = (ListView)view.findViewById(R.id.listView);
         adapter = new MainListAdapter(getActivity(), mainList);
         listView.addHeaderView(headerView);
         listView.setAdapter(adapter);
-        title = (TextView)view.findViewById(R.id.text_title);
-        title.setText("捞金豆");
+        //添加滚动监听，到底部加载
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (visibleItemCount + firstVisibleItem == totalItemCount) {
+                    View lastVisibleItemView = listView.getChildAt(totalItemCount - firstVisibleItem - 1);
+                    if (lastVisibleItemView != null && lastVisibleItemView.getBottom() == view.getHeight()) {
+                        // 滑动到了底部
+                        Log.d("FC", "dibu0000000");
+                        if(listView.getFooterViewsCount() == 0){
+                            Log.d("FC", "dibu");
+                            footerView = LayoutInflater.from(getActivity()).inflate(R.layout.listview_footer, null);
+                            listView.addFooterView(footerView);
+                            pageNo++;
+                            getMainInfo(pageNo);
+                        }
+                    } else {
+                    }
+                } else {
+                }
+            }
+        });
+
+
     }
 
     private void getMainInfo(int pageNo){
         RequestInterface requestInterface = new RequestInterface(getActivity());
-        requestInterface.getMainInfo(1, 10);
+        requestInterface.getMainInfo(pageNo, pageSize);
         requestInterface.setCallback(new JsonCallback<List<RecyclerBean>>() {
             @Override
             public void onError(Request request, String e) {
@@ -74,9 +108,14 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             }
             @Override
             public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+                Log.d("FC", list.size()+"----");
                 swipeRefreshLayout.setRefreshing(false);
+                if(listView.getFooterViewsCount() > 0){//移除底部加载条
+                    listView.removeFooterView(footerView);
+                }
                 mainList.addAll(list);
                 adapter.notifyDataSetChanged();
+
             }
         });
     }
@@ -84,7 +123,10 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
     @Override
     public void onRefresh() {
-        getMainInfo(1);
+        //下拉刷新清除list里数据,恢复pageNo为1；
+        mainList.clear();
+        pageNo = 1;
+        getMainInfo(pageNo);
     }
 
     private void initDotLayout(){

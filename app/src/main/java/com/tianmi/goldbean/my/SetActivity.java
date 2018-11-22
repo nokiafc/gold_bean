@@ -3,9 +3,11 @@ package com.tianmi.goldbean.my;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tianmi.goldbean.BaseActivity;
@@ -15,6 +17,7 @@ import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.Utils.RechargeDialog;
+import com.tianmi.goldbean.Utils.Utils;
 import com.tianmi.goldbean.login.LoginActivity;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
@@ -28,6 +31,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener{
     private RelativeLayout managerLayout;
     private String userRole = DataUtil.getPreferences("userRole", "");
     private String userId = DataUtil.getPreferences("userId", "");
+    private TextView versionText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,10 @@ public class SetActivity extends BaseActivity implements View.OnClickListener{
         init();
     }
     private void init(){
+        versionText = (TextView)findViewById(R.id.version_text);
+        //获取版本名称
+        String packageName = Utils.packageName(this);
+        versionText.setText(packageName);
         managerLayout = (RelativeLayout)findViewById(R.id.manager_layout);
         managerLayout.setOnClickListener(this);
         if(userRole.equals("1")){//管理员显示出操作布局

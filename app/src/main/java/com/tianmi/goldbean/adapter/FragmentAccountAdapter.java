@@ -40,7 +40,7 @@ public class FragmentAccountAdapter extends BaseAdapter{
         if(convertView == null){
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_fragment_account, null);
-            holder.timeText = (TextView)convertView.findViewById(R.id.title_msg_text);
+            holder.titleText = (TextView)convertView.findViewById(R.id.title_msg_text);
             holder.numText = (TextView)convertView.findViewById(R.id.title_no_text);
             holder.timeText = (TextView)convertView.findViewById(R.id.title_time_text);
             convertView.setTag(holder);
@@ -49,22 +49,22 @@ public class FragmentAccountAdapter extends BaseAdapter{
         }
         switch (list.get(position).getDealSource()){
             case 1:
-                holder.timeText.setText("您有一条充值消息");
+                holder.titleText.setText("您有一条充值消息");
                 break;
             case 2:
-                holder.timeText.setText("您有一条红包消息");
+                holder.titleText.setText("您有一条红包消息");
                 break;
             case 3:
-                holder.timeText.setText("您有一条分享奖励消息");
+                holder.titleText.setText("您有一条分享奖励消息");
                 break;
             case 4:
-                holder.timeText.setText("您有一条红包退款消息");
+                holder.titleText.setText("您有一条红包退款消息");
                 break;
             case 5:
-                holder.timeText.setText("您有一条发红包消息");
+                holder.titleText.setText("您有一条发红包消息");
                 break;
             case 6:
-                holder.timeText.setText("您有一条提现消息");
+                holder.titleText.setText("您有一条提现消息");
                 break;
         }
         holder.numText.setText("订单号:"+list.get(position).getDealNo());
