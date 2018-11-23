@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 //import com.mob.MobSDK;
 
 import java.util.LinkedList;
@@ -25,11 +26,15 @@ public class GoldApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        MobSDK.init(this);//初始sharedSdk
-        UMConfigure.init(this, "5bf6ad36b465f5c37d0000e6", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        UMConfigure.setLogEnabled(true);
+
         initOkHttpClient();
         sp = getSharedPreferences("com.tianmi.goldbean", 0);
+        initUmeng();
+    }
+    private void initUmeng(){
+        UMConfigure.init(this, "5bf6ad36b465f5c37d0000e6", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.setLogEnabled(true);
+        PlatformConfig.setWeixin("wxab96184a9724d08d", "690edcab026711419a4ba75a2aa76005");
     }
 
     public static GoldApplication getAppInstance() {

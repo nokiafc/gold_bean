@@ -3,9 +3,19 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    signingConfigs {
+        release {
+            storeFile file('./gold_bean.jks')
+            storePassword "tianmi2018"
+            keyAlias "goldbean"
+            keyPassword "tianmi2018"
+        }
+        config {
+        }
+    }
     defaultConfig {
         applicationId "com.tianmi.goldbean"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
@@ -13,28 +23,16 @@ android {
     }
     buildTypes {
         release {
+            aaptOptions.setProperty("cruncherEnabled",false)
             minifyEnabled false
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [pkg_name: "com.tianmi.goldbean"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     buildToolsVersion '28.0.3'
 }
-//MobSDK {
-//    appKey "28c6b18268740"
-//    appSecret "0f785ef87be1857149c13cad4baf1f74"
-//
-//    ShareSDK {
-//        devInfo {
-//            Wechat {
-//                id "1"
-//                sortId "1"
-//                appId "wx4f059b07213f6ac8"
-//                appSecret "3bea529661358c6f85915cafab730ccd"
-//            }
-//        }
-//    }
-//
-//}
+
 
 dependencies {
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
@@ -55,4 +53,7 @@ dependencies {
     implementation project(path: ':PhotoPicker')
     implementation files('libs/umeng-analytics-7.5.4.jar')
     implementation files('libs/umeng-common-1.5.4.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
+    implementation files('libs/umeng-sharetool-6.9.4.jar')
+    implementation files('libs/umeng-share-core-6.9.4.jar')
 }

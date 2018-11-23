@@ -35,7 +35,12 @@ public class BaseActivity extends Activity {
         backLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishAfterTransition();
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    finishAfterTransition();
+                }else {
+                    finish();
+                }
+
             }
         });
     }

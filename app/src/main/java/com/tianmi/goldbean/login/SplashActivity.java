@@ -13,6 +13,7 @@ import com.tianmi.goldbean.MainActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.bean.MyInfoBean;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.RecyclerBean;
@@ -23,6 +24,7 @@ import java.util.List;
 import okhttp3.Request;
 
 public class SplashActivity extends BaseActivity {
+    private String userId = DataUtil.getPreferences("userId", "");
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -50,27 +52,25 @@ public class SplashActivity extends BaseActivity {
             msg.what= 0;
             handler.sendMessageDelayed(msg, 1000);
         }else {//请求个接口判断token是否过期
-            getMainInfo();
+            getMyInfo();
         }
     }
 
-    private void getMainInfo(){
+    private void getMyInfo(){
         RequestInterface requestInterface = new RequestInterface(this);
-        requestInterface.getMainInfo(1, 10);
-        requestInterface.setCallback(new JsonCallback<List<RecyclerBean>>() {
+        requestInterface.getMyInfo(Integer.parseInt(userId));
+        requestInterface.setCallback(new JsonCallback<MyInfoBean>() {
             @Override
             public void onError(Request request, String e) {
 
             }
 
             @Override
-            public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+            public void onResponse(MyInfoBean bean, String message) throws IOException {
                 Message msg = Message.obtain();
                 msg.what= 1;
                 handler.sendMessageDelayed(msg, 1000);
             }
         });
-
-
     }
 }

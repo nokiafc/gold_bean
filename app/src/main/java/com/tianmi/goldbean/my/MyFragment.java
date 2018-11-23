@@ -9,14 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.Utils.Utils;
 import com.tianmi.goldbean.bean.MyInfoBean;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.IOException;
 
@@ -31,8 +37,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
     private String phone = DataUtil.getPreferences("userPhone", "");
     private String userId = DataUtil.getPreferences("userId", "");
-    private ImageView managerImg;
+    private ImageView managerImg, addFriendImg;
     private TextView accountText, allPersonText, monPersonText;
+    private RelativeLayout addFriendLayout;
 
 
     @Override
@@ -43,6 +50,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        addFriendLayout = (RelativeLayout)view.findViewById(R.id.add_friend_layout) ;
+        addFriendLayout.setOnClickListener(this);
         accountText = (TextView)view.findViewById(R.id.text_gold_num) ;
         allPersonText = (TextView)view.findViewById(R.id.text_recommend_num);
         monPersonText = (TextView)view.findViewById(R.id.text_recommend_month) ;
@@ -65,6 +74,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.add_friend_layout://分享
+                new ShareAction(getActivity()).withMedia(Utils.getUMWeb(getActivity())).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN)
+                        .setCallback(umShareListener).open();
+                break;
             case R.id.btn_recharge://充值
                 ActivityUtil.startActivity(getActivity(), RechargeActivity.class);
                 break;
@@ -79,6 +92,46 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(),"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(getActivity(),"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(),"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
     //开始做宣传
     private void startConduct(){
         //1.判断个人状态是个人还是已经是商户了

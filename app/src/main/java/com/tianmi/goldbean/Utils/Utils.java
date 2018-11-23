@@ -4,7 +4,20 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.tianmi.goldbean.R;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+
 public class Utils {
+
+    public static UMWeb getUMWeb(Context context){
+        UMImage thumb =  new UMImage(context, R.drawable.icon_app);
+        UMWeb  web = new UMWeb("https://www.baidu.com");
+        web.setTitle("【捞金豆】我在这里领到了红包，快来一起抢红包吧");//标题
+        web.setThumb(thumb);  //缩略图
+        web.setDescription("我在这里领到了红包，快来一起抢红包吧");//描述
+        return web;
+    }
     public static int packageCode(Context context) {
         PackageManager manager = context.getPackageManager();
         int code = 0;
