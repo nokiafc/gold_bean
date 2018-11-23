@@ -75,8 +75,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add_friend_layout://分享
-                new ShareAction(getActivity()).withMedia(Utils.getUMWeb(getActivity())).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN)
-                        .setCallback(umShareListener).open();
+//                new ShareAction(getActivity()).withMedia(Utils.getUMWeb(getActivity())).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN)
+//                        .setCallback(umShareListener).open();
+                ActivityUtil.startActivity(getActivity(), ZXingActivity.class);
                 break;
             case R.id.btn_recharge://充值
                 ActivityUtil.startActivity(getActivity(), RechargeActivity.class);

@@ -56,4 +56,5 @@ dependencies {
     implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
     implementation files('libs/umeng-sharetool-6.9.4.jar')
     implementation files('libs/umeng-share-core-6.9.4.jar')
+    implementation files('libs/core-3.3.3.jar')
 }

@@ -53,7 +53,9 @@
         <activity android:name=".my.OpenActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity android:name=".my.ZXingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".my.SetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
