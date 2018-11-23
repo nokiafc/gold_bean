@@ -33,7 +33,7 @@ public class ZXingActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setEnterTransition(true);
         setContentView(R.layout.activity_zxing);
-        initTitle("我的二维码");
+        initTitle("我的邀请码");
         init();
     }
     private void init(){
