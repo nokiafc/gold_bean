@@ -33,10 +33,10 @@ public class MainListAdapter extends BaseAdapter {
     public int getCount() {
         if(list.size() == 0){
             return 0;
-        }else if(list.size()%2 == 0){
+        }else if(list.size()%2 == 0){//是整数
 
             return list.size()/2;
-        }else {
+        }else {//单数
             return 1+list.size()/2;
         }
 
@@ -91,26 +91,33 @@ public class MainListAdapter extends BaseAdapter {
                 ActivityUtil.startActivity((Activity) context, RoomActivity.class, b);
             }
         });
+        //如果list是单数，不能填充
+        if(position*2+1 != list.size()){holder.itemLayout2.setVisibility(View.VISIBLE);
+            Log.d("FC", (position*2+1)+"====="+list.size());
+            String url2 = list.get(position*2+1).getGoodsUrl();
+            String urls2[] = url.split(",");
+            Glide.with(context)
+                    .load(urls2[1])
+                    .transform(new GlideRoundTransform(context, 10))
+                    .placeholder(R.drawable.img_fail)
+                    .error(R.drawable.img_fail)
+                    .into(holder.img2);
 
-        String url2 = list.get(position*2+1).getGoodsUrl();
-        String urls2[] = url.split(",");
-        Glide.with(context)
-                .load(urls2[1])
-                .transform(new GlideRoundTransform(context, 10))
-                .placeholder(R.drawable.img_fail)
-                .error(R.drawable.img_fail)
-                .into(holder.img2);
+            holder.textName2.setText("房间ID： "+list.get(position*2+1).getId());
+            holder.textGift2.setText("红包剩余量: "+list.get(position*2+1).getRemainRed()+"个");
+            holder.itemLayout2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    b.putSerializable("bean", list.get(position*2+1));
+                    ActivityUtil.startActivity((Activity) context, RoomActivity.class, b);
+                }
+            });
+        }else if(position*2+1 == list.size()){
+            holder.itemLayout2.setVisibility(View.INVISIBLE);
+        }
 
-        holder.textName2.setText("房间ID： "+list.get(position*2+1).getId());
-        holder.textGift2.setText("红包剩余量: "+list.get(position*2+1).getRemainRed()+"个");
-        holder.itemLayout2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putSerializable("bean", list.get(position*2+1));
-                ActivityUtil.startActivity((Activity) context, RoomActivity.class, b);
-            }
-        });
+
         return convertView;
     }
     class ViewHolder{

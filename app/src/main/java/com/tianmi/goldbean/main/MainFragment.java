@@ -45,14 +45,13 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private int pageNo = 1;
     private int pageSize = 10;
     private View footerView;
+    private boolean isEmpty = false;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
         checkPermission();
         getMainInfo(1);
-        String sdPath = Environment.getExternalStorageDirectory() + "/";
-        Log.d("FC", sdPath);
         return view;
     }
 
@@ -82,9 +81,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
                     View lastVisibleItemView = listView.getChildAt(totalItemCount - firstVisibleItem - 1);
                     if (lastVisibleItemView != null && lastVisibleItemView.getBottom() == view.getHeight()) {
                         // 滑动到了底部
-                        Log.d("FC", "dibu0000000");
-                        if(listView.getFooterViewsCount() == 0){
-                            Log.d("FC", "dibu");
+                        if(listView.getFooterViewsCount() == 0 && !isEmpty){
                             footerView = LayoutInflater.from(getActivity()).inflate(R.layout.listview_footer, null);
                             listView.addFooterView(footerView);
                             pageNo++;
@@ -111,10 +108,13 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             }
             @Override
             public void onResponse(List<RecyclerBean> list, String message) throws IOException {
-                Log.d("FC", list.size()+"----");
+                Log.d("FC", list.size()+"===");
                 swipeRefreshLayout.setRefreshing(false);
                 if(listView.getFooterViewsCount() > 0){//移除底部加载条
                     listView.removeFooterView(footerView);
+                }
+                if(list.size() == 0){
+                    isEmpty = true;
                 }
                 mainList.addAll(list);
                 adapter.notifyDataSetChanged();
@@ -127,6 +127,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     @Override
     public void onRefresh() {
         //下拉刷新清除list里数据,恢复pageNo为1；
+        isEmpty = false;
         mainList.clear();
         pageNo = 1;
         getMainInfo(pageNo);
