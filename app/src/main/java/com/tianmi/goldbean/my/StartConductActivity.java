@@ -175,8 +175,10 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         for(int i=0; i< picUrls.size(); i++){
             if(i==0){
                 allUrl =  picUrls.get(0);
+            }else {
+                allUrl = allUrl+","+picUrls.get(i);
             }
-            allUrl = allUrl+","+picUrls.get(i);
+
         }
         userGoods.setGoodsUrl(allUrl);
         userGoods.setGoodsName(jieshao);

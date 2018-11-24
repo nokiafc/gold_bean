@@ -3,6 +3,7 @@ package com.tianmi.goldbean.my;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ import okhttp3.Request;
 
 public class ZXingActivity extends BaseActivity implements View.OnClickListener{
     private ImageView zxingImg;
+    private String userRecommendCode = DataUtil.getPreferences("userRecommendCode", "");
+    private final String SHARE_URL = "http://59.111.105.183/tianmi/toRegist?invideCode=";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,8 @@ public class ZXingActivity extends BaseActivity implements View.OnClickListener{
     }
     private void init(){
         zxingImg = (ImageView)findViewById(R.id.zxing_img);
-        zxingImg.setImageBitmap(QRCodeUtil.createQRCodeBitmap("https://www.baidu.com", 400));
+        zxingImg.setImageBitmap(QRCodeUtil.createQRCodeBitmap(SHARE_URL+userRecommendCode, 400));
+        Log.d("FC", SHARE_URL+userRecommendCode);
     }
 
     @Override

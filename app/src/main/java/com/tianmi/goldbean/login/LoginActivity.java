@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 DataUtil.putPreferences("userRecommendCode", bean.getUserRecommendCode()+"");
                 DataUtil.putPreferences("userRole", bean.getUserRole()+"");
                 DataUtil.putPreferences("merchantsFlag", bean.getMerchantsFlag()+"");
+                DataUtil.putPreferences("userRecommendCode", bean.getUserRecommendCode());
             ActivityUtil.startActivity(LoginActivity.this, MainActivity.class);
             finish();
             }
