@@ -18,6 +18,7 @@ import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.DataUtil;
+import com.tianmi.goldbean.Utils.Utils;
 import com.tianmi.goldbean.adapter.CommentAdapter;
 import com.tianmi.goldbean.adapter.RoomPagerAdapter;
 import com.tianmi.goldbean.my.MerchantInfoActivity;
@@ -25,6 +26,9 @@ import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.RecyclerBean;
 import com.tianmi.goldbean.net.bean.RoomBean;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -132,7 +136,8 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.friend_layout:
                 //分享到朋友圈
-//                showShare();
+                new ShareAction(this).withMedia(Utils.getUMWeb(this)).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN)
+                        .setCallback(umShareListener).open();
                 break;
             case R.id.merchant_layout:
                 //跳转商家信息页
@@ -146,41 +151,45 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-//        private void showShare() {
-//            OnekeyShare oks = new OnekeyShare();
-//            //关闭sso授权
-//            oks.disableSSOWhenAuthorize();
-//
-//            // title标题，微信、QQ和QQ空间等平台使用
-//            oks.setTitle("捞金豆");
-//            // titleUrl QQ和QQ空间跳转链接
-//            oks.setTitleUrl("http://sharesdk.cn");
-//            // text是分享文本，所有平台都需要这个字段
-//            oks.setText("我是分享文本");
-//            // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//            oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-//            // url在微信、微博，Facebook等平台中使用
-//            oks.setUrl("http://sharesdk.cn");
-//            // comment是我对这条分享的评论，仅在人人网使用
-//            oks.setComment("我是测试评论文本");
-//           oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
-//               @Override
-//               public void onShare(Platform platform, Platform.ShareParams shareParams) {
-//                   if (Wechat.NAME.equals(platform.getName())) {
-//                       Log.d("FC", platform.getName());
-//                       shareParams.setShareType(Platform.SHARE_WEBPAGE);
-//                       shareParams.setUrl("www.baidu.com");
-//                       shareParams.setText("捞金豆");
-//                       shareParams.setImageUrl("/sdcard/test.jpg");
-//                       shareParams.setTitle("捞金豆哈哈哈");
-//                   }
-//
-//               }
-//           });
-//            // 启动分享GUI
-//            oks.show(this);
-//
-//    }
+    private UMShareListener umShareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(RoomActivity.this,"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(RoomActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(RoomActivity.this,"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
     private void goodsComment(){
         final String remark = wordEdit.getText().toString().trim();
         RequestInterface requestInterface = new RequestInterface(this);

@@ -23,6 +23,15 @@ public class RequestInterface extends BaseRequest {
     public RequestInterface(Activity activity) {
         this.activity = activity;
     }
+    //获取服务器版本信息
+    public void getVersion(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        this.post("/version/get", map, activity);
+    }
+    //下载apk更新
+    public void update(){
+
+    }
 
     public void login(String userPhone, String userPassword) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -67,6 +76,13 @@ public class RequestInterface extends BaseRequest {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pageNo", pageNo);
         map.put("pageSize", pageSize);
+        this.post("/index", map, activity);
+    }
+    public void getMainInfoUp(int  pageNo, int pageSize, int topFlag){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        map.put("topFlag", topFlag);
         this.post("/index", map, activity);
     }
     public void getGoodsDetail(int goodsId){
@@ -118,11 +134,12 @@ public class RequestInterface extends BaseRequest {
         this.post("/manager/getGoodsApplys", map, activity);
     }
     //管理员审核
-    public void shenhe(int userId, int goodsId, int goodsState){
+    public void shenhe(int userId, int goodsId, int goodsState, int topFlag){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("goodsState", goodsState);
         map.put("userId", userId);
         map.put("goodsId", goodsId);
+        map.put("topFlag", topFlag);
         this.post("/manager/audit", map, activity);
     }
     //管理员获取用户信息

@@ -33,7 +33,7 @@ public class ManagerVerifyItemActivity extends BaseActivity implements View.OnCl
     private MultiPickResultView multiPickResultView;
     private TextView contentText;
     private ManagerVerifyBean bean;
-    private Button passBtn, refuseBtn, checkBtn;
+    private Button passBtn, refuseBtn, checkBtn, upBtn;
     private String userId = DataUtil.getPreferences("userId", "");
     private int goodsId ;
     @Override
@@ -47,6 +47,8 @@ public class ManagerVerifyItemActivity extends BaseActivity implements View.OnCl
         init();
     }
     private void init(){
+        upBtn = (Button)findViewById(R.id.pass_up_btn);
+        upBtn.setOnClickListener(this);
         passBtn = (Button)findViewById(R.id.pass_btn) ;
         passBtn.setOnClickListener(this);
         refuseBtn = (Button)findViewById(R.id.refuse_btn) ;
@@ -61,7 +63,6 @@ public class ManagerVerifyItemActivity extends BaseActivity implements View.OnCl
             ArrayList<String> list = new ArrayList<String>();
             for(int i=0; i<url.length; i++){
                 list.add(url[i]);
-                Log.d("FC", url[i]);
 
             }
 
@@ -77,19 +78,22 @@ public class ManagerVerifyItemActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.pass_btn:
-                shenhe(1);
+                shenhe(1, 0);
+                break;
+            case R.id.pass_up_btn:
+                shenhe(1, 1);
                 break;
             case R.id.refuse_btn:
-                shenhe(0);
+                shenhe(0, 0);
                 break;
             case R.id.check_btn:
                 ActivityUtil.startActivity(this, MerchantInfoActivity.class, bean.getUserId()+"");
                 break;
         }
     }
-    private void shenhe(int goodsState){
+    private void shenhe(int goodsState, int topFlag){
         RequestInterface request = new RequestInterface(this);
-        request.shenhe(Integer.parseInt(userId), goodsId, goodsState);
+        request.shenhe(Integer.parseInt(userId), goodsId, goodsState, topFlag);
         request.setCallback(new JsonCallback() {
             @Override
             public void onError(Request request, String e) {

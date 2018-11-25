@@ -93,7 +93,6 @@ public class MainListAdapter extends BaseAdapter {
         });
         //如果list是单数，不能填充
         if(position*2+1 != list.size()){holder.itemLayout2.setVisibility(View.VISIBLE);
-            Log.d("FC", (position*2+1)+"====="+list.size());
             String url2 = list.get(position*2+1).getGoodsUrl();
             String urls2[] = url.split(",");
             Glide.with(context)

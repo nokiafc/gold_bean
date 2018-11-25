@@ -25,6 +25,8 @@
     <color name="text_color_9">#909090</color>
     <color name="text_color_10">#7dffffff</color>
 
+    <color name="tran">#00000000</color>
+
     <color name="textColor_11">#5f616b</color>
     <color name="black_toolbar">#2d2c32</color>
 

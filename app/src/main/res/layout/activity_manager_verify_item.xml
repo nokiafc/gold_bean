@@ -38,19 +38,32 @@
             android:id="@+id/pass_btn"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:text="通过"
+            android:text="上架"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
+            android:layout_marginLeft="30dp"
             android:textColor="@color/text_color_3"
             android:background="@drawable/selector_red_button"/>
+    <Button
+        android:id="@+id/pass_up_btn"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:text="置顶上架"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_toRightOf="@+id/pass_btn"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/text_color_3"
+        android:background="@drawable/selector_red_button"/>
+
     <Button
         android:id="@+id/refuse_btn"
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:text="拒绝"
         android:textColor="@color/text_color_3"
-        android:layout_toRightOf="@+id/pass_btn"
-        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/pass_up_btn"
+        android:layout_marginLeft="30dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"
         android:background="@drawable/selector_red_button"/>

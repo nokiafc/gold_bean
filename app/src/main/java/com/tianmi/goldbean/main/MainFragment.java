@@ -1,11 +1,17 @@
 package com.tianmi.goldbean.main;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,51 +25,73 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.RechargeDialog;
+import com.tianmi.goldbean.Utils.UpdateDialog;
+import com.tianmi.goldbean.Utils.UpdateDialog1;
+import com.tianmi.goldbean.Utils.UpdateManager;
+import com.tianmi.goldbean.Utils.Utils;
 import com.tianmi.goldbean.adapter.MainListAdapter;
+import com.tianmi.goldbean.adapter.MainPagerAdapter;
 import com.tianmi.goldbean.bean.PagerBean;
+import com.tianmi.goldbean.bean.VersionBean;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
 import com.tianmi.goldbean.net.bean.RecyclerBean;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Request;
 
-public class MainFragment extends Fragment implements ViewPager.OnPageChangeListener ,SwipeRefreshLayout.OnRefreshListener{
+public class MainFragment extends Fragment implements ViewPager.OnPageChangeListener ,SwipeRefreshLayout.OnRefreshListener {
     private List<PagerBean> list = new ArrayList<PagerBean>() ;
     private ImageView[] imageViews;
     private TextView title;
     private ListView listView;
     private List<RecyclerBean> mainList = new ArrayList<RecyclerBean>();
+    private List<RecyclerBean> topList = new ArrayList<RecyclerBean>();
     private MainListAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int pageNo = 1;
     private int pageSize = 10;
     private View footerView;
     private boolean isEmpty = false;
+    private UpdateDialog1 updateDialog;
+    private String updateUrl = "";
+    private ViewPager viewPager;
+    private MainPagerAdapter topAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
         checkPermission();
-        getMainInfo(1);
+//        getMainInfo(1);
+        getVersion();
+        getMainUp();
         return view;
     }
 
     private void init(View view){
         title = (TextView)view.findViewById(R.id.text_title);
         title.setText("捞金豆");
-
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.main_swipe);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#00aeff"));
         swipeRefreshLayout.setOnRefreshListener(this);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.header_main_list, null);
+        viewPager = (ViewPager)headerView.findViewById(R.id.viewPager) ;
+        topAdapter = new MainPagerAdapter(topList, getActivity());
+        viewPager.setAdapter(topAdapter);
+
+
         listView = (ListView)view.findViewById(R.id.listView);
         adapter = new MainListAdapter(getActivity(), mainList);
         listView.addHeaderView(headerView);
@@ -96,6 +124,24 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
 
     }
+    private void getMainUp(){
+        RequestInterface request = new RequestInterface(getActivity());
+        request.getMainInfoUp(1, 10, 1);
+        request.setCallback(new JsonCallback<List<RecyclerBean>>() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+                if(list != null){
+                    topList.addAll(list);
+                    topAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
 
     private void getMainInfo(int pageNo){
         RequestInterface requestInterface = new RequestInterface(getActivity());
@@ -108,7 +154,6 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             }
             @Override
             public void onResponse(List<RecyclerBean> list, String message) throws IOException {
-                Log.d("FC", list.size()+"===");
                 swipeRefreshLayout.setRefreshing(false);
                 if(listView.getFooterViewsCount() > 0){//移除底部加载条
                     listView.removeFooterView(footerView);
@@ -118,6 +163,79 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
                 }
                 mainList.addAll(list);
                 adapter.notifyDataSetChanged();
+
+            }
+        });
+    }
+
+    private MyHandler myHandler = new MyHandler();
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    int downLength = msg.arg1;
+                    int fileLength = msg.arg2;
+                    int progress = (int) (((float) downLength / fileLength)*100);
+                    updateDialog.updateProgress(progress);
+                    if(progress == 100){
+                        installAPK();
+                    }
+                    break;
+
+                case 1:
+                    if (null != updateDialog)
+                        updateDialog.dismiss();
+                    Toast.makeText(getActivity(), "网络错误请重试", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+
+                    break;
+            }
+        }
+    }
+    private String mSavePath = Environment.getExternalStorageDirectory() + "/goldbean.apk";
+
+    protected void installAPK() {
+        File apkFile = new File(mSavePath);
+        if (!apkFile.exists()){
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+//      安装完成后，启动app（源码中少了这句话）
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.parse("file://" + apkFile.toString());
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        startActivity(intent);
+    }
+
+    public void getVersion(){
+        RequestInterface request = new RequestInterface(getActivity());
+        request.getVersion();
+        request.setCallback(new JsonCallback<VersionBean>() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(VersionBean bean, String message) throws IOException {
+                //1先获取本地版本号码
+                int versionId = bean.getVersionId();
+                int versionCode = Utils.packageCode(getActivity());
+                //2和服务器versionId进行比对
+                boolean isUpdate = false;
+                if(versionCode < versionId){
+                    isUpdate = true;
+                }
+                //3判断是否是强制更新
+                int updateFlag = bean.getUpdateFlag();
+                //是强制更新  调取下载地址进行下载安装
+                updateUrl = bean.getUrl();
+//                updateDialog = new UpdateDialog1(getActivity(), "", true);
+//                updateDialog.show();
+
 
             }
         });
@@ -198,5 +316,68 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
         }
     }
+
+    public class UpdateDialog1 implements View.OnClickListener {
+        private View dialog;
+        private Dialog myDialog;
+        private Activity activity;
+        private RelativeLayout updateLayout, cancelLayout;
+        private TextView contentText;
+        private RechargeDialog.MyPayCallBack payCallBack;
+        private String content;
+        private ProgressBar progressBar;
+        private boolean isQiangzhi = false;
+
+        public UpdateDialog1(Activity activity, String content, boolean isQiangzhi){
+            this.isQiangzhi = isQiangzhi;
+            this.activity = activity;
+            this.content = content;
+            dialog = LayoutInflater.from(activity).inflate(R.layout.dialog_update_1, null);
+            initViews(dialog);
+        }
+
+        public void show(){
+
+            myDialog = new Dialog(activity, R.style.Theme_AppCompat_Dialog);
+
+            myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            myDialog.setCancelable(true);
+            myDialog.setContentView(dialog);
+            myDialog.show();
+        }
+        public void dismiss(){
+            myDialog.dismiss();
+        }
+        private void initViews(View view) {
+            contentText = (TextView)view.findViewById(R.id.content_text);
+            updateLayout = (RelativeLayout)view.findViewById(R.id.update_layout);
+            updateLayout.setOnClickListener(this);
+
+            cancelLayout = (RelativeLayout)view.findViewById(R.id.cancel_layout);
+            cancelLayout.setOnClickListener(this);
+            progressBar = (ProgressBar)view.findViewById(R.id.id_progress);
+
+        }
+
+        public void updateProgress(int progress){
+            progressBar.setProgress(progress);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.update_layout:
+                    //升级接口
+                    UpdateManager manager = new UpdateManager(myHandler);
+                    manager.downloadApkFile(updateUrl);
+                    break;
+                case R.id.cancel_layout:
+                    myDialog.dismiss();
+                    break;
+            }
+        }
+    }
+
 
 }
