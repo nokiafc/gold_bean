@@ -52,8 +52,8 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
                     Toast.makeText(CashActivity.this, "请输入正确的金额", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Integer.parseInt(cashAmount) <10){
-                    Toast.makeText(CashActivity.this, "最小提现金额10元", Toast.LENGTH_SHORT).show();
+                if(Integer.parseInt(cashAmount) <1){
+                    Toast.makeText(CashActivity.this, "最小提现金额1元", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dialog = new RechargeDialog(CashActivity.this , "到账方式");
@@ -65,14 +65,13 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
     }
     private RechargeDialog dialog;
     @Override
-    public void pay() {
+    public void pay(String imgFlag) {
         dialog.dismiss();
         myDialog = MyDialog.createLoadingDialog(this, "提交中...");
         cash(cashAmount);//提现
     }
     private void cash(String amount){
         RequestInterface request = new RequestInterface(this);
-        Log.d("FC", amount+"===="+Integer.parseInt(userId));
         request.cash(Integer.parseInt(userId), amount);
         request.setCallback(new JsonCallback() {
             @Override

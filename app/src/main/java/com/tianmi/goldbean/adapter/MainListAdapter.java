@@ -75,7 +75,7 @@ public class MainListAdapter extends BaseAdapter {
         String url = list.get(position*2).getGoodsUrl();
         String urls[] = url.split(",");
         Glide.with(context)
-                .load(urls[1])
+                .load(urls[0])
                 .transform(new GlideRoundTransform(context, 10))
                 .placeholder(R.drawable.img_fail)
                 .error(R.drawable.img_fail)
@@ -94,9 +94,9 @@ public class MainListAdapter extends BaseAdapter {
         //如果list是单数，不能填充
         if(position*2+1 != list.size()){holder.itemLayout2.setVisibility(View.VISIBLE);
             String url2 = list.get(position*2+1).getGoodsUrl();
-            String urls2[] = url.split(",");
+            String urls2[] = url2.split(",");
             Glide.with(context)
-                    .load(urls2[1])
+                    .load(urls2[0])
                     .transform(new GlideRoundTransform(context, 10))
                     .placeholder(R.drawable.img_fail)
                     .error(R.drawable.img_fail)

@@ -151,10 +151,15 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
 
         myDialog = MyDialog.createLoadingDialog(this, "加载中...");
         myDialog.show();
-
-        for(int i=0; i<photos.size(); i++){
-            upLoadImg(photos.get(i));
+        if(startNum == photoNum){//有肯能在提交商品的时候失败，但是图片已经上传成功
+            commitGoods();
+        }else {
+            for(int i=0; i<photos.size(); i++){
+                upLoadImg(photos.get(i));
+            }
         }
+
+
     }
 
     private void upLoadImg(String url){

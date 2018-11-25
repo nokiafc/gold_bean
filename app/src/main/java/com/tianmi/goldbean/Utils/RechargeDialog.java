@@ -64,7 +64,7 @@ public class RechargeDialog implements View.OnClickListener {
     }
 
         public interface MyPayCallBack{
-        void pay();
+        void pay(String imgFlag);
     }
     public void setPayCall(MyPayCallBack payCallBack){
         this.payCallBack = payCallBack;
@@ -97,7 +97,7 @@ public class RechargeDialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_recharge_confirm:
-                payCallBack.pay();
+                payCallBack.pay(imgFlag);
                 break;
             case R.id.btn_recharge_cancel:
                 myDialog.dismiss();

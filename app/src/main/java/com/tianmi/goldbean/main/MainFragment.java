@@ -68,12 +68,13 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private String updateUrl = "";
     private ViewPager viewPager;
     private MainPagerAdapter topAdapter;
+    private LinearLayout dotLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
         checkPermission();
-//        getMainInfo(1);
+        getMainInfo(1);
         getVersion();
         getMainUp();
         return view;
@@ -90,6 +91,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         viewPager = (ViewPager)headerView.findViewById(R.id.viewPager) ;
         topAdapter = new MainPagerAdapter(topList, getActivity());
         viewPager.setAdapter(topAdapter);
+        dotLayout = (LinearLayout)headerView.findViewById(R.id.layout_dot) ;
 
 
         listView = (ListView)view.findViewById(R.id.listView);
@@ -138,6 +140,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
                 if(list != null){
                     topList.addAll(list);
                     topAdapter.notifyDataSetChanged();
+                    initDotLayout();
                 }
             }
         });
@@ -254,7 +257,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private void initDotLayout(){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0,0,0);
-        for(int i=0; i<list.size(); i++){
+        Log.d("FC", topList.size()+"====");
+        for(int i=0; i<topList.size(); i++){
             ImageView imageView = new ImageView(getActivity());
             imageViews[i] = imageView;
             if(i ==0){
@@ -264,7 +268,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
                 imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.shape_dot_1));
             }
-//            dotLayout.addView(imageView, params);
+            dotLayout.addView(imageView, params);
         }
     }
 
