@@ -132,12 +132,20 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
         }
-        if(redNum == null || redNum.equals("0") || redNum.equals("")){
+        if(redNum == null || redNum.equals("0") || redNum.equals("") ){
             Toast.makeText(this, "请输入正确的红包数量", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(Integer.parseInt(redNum) <100){
+            Toast.makeText(this, "红包数量不能低于100个", Toast.LENGTH_SHORT).show();
             return;
         }
         if(allMoney == null || allMoney.equals("0") || allMoney.equals("")){
             Toast.makeText(this, "请输入正确红包金额", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(Integer.parseInt(allMoney) < 10){
+            Toast.makeText(this, "红包总金额不能低于10元", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -256,6 +264,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
                     GoodsQuestion gq = new GoodsQuestion();
                     gq.setUserId(userId);
                     listQuestion.add(gq);
+                    adapter.notifyDataSetChanged();
                 }else {
                     Toast.makeText(this, "最多添加5个问题", Toast.LENGTH_SHORT).show();
                 }
