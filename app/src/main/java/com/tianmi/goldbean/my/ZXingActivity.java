@@ -30,7 +30,7 @@ import okhttp3.Request;
 public class ZXingActivity extends BaseActivity implements View.OnClickListener{
     private ImageView zxingImg;
     private String userRecommendCode = DataUtil.getPreferences("userRecommendCode", "");
-    private final String SHARE_URL = "http://59.111.105.183/tianmi/toRegist?invideCode=";
+    private final String SHARE_URL = "http://www.tianmi0319.com/tianmi/toRegist?invideCode=";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -33,11 +33,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-//import cn.sharesdk.framework.Platform;
-//import cn.sharesdk.onekeyshare.OnekeyShare;
-//import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
-//import cn.sharesdk.wechat.friends.Wechat;
 import me.iwf.photopicker.widget.MultiPickResultView;
 import okhttp3.Request;
 
@@ -82,9 +77,6 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
         redNumText = (TextView)findViewById(R.id.text_red) ;
         getRedBtn = (Button)findViewById(R.id.get_red);
         getRedBtn.setOnClickListener(this);
-//        viewPager = (ViewPager)findViewById(R.id.viewPager) ;
-//        adapter = new RoomPagerAdapter(list, this);
-//        viewPager.setAdapter(adapter);
 
         wordEdit = (EditText)findViewById(R.id.edit_words);
         sayBtn = (Button)findViewById(R.id.btn_say);

@@ -46,7 +46,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         init(view);
-        getMyInfo();
+
         return view;
     }
     private void init(View view ){
@@ -168,5 +168,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
+        getMyInfo();
     }
 }

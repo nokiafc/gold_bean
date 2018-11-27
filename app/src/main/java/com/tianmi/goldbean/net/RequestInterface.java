@@ -28,6 +28,43 @@ public class RequestInterface extends BaseRequest {
         Map<String, Object> map = new HashMap<String, Object>();
         this.post("/version/get", map, activity);
     }
+    //获取图片验证码
+    public void getImgCode(String userPhone, String source){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userPhone", userPhone);
+        map.put("source", source);
+        this.postByte("/getCaptcha", map, activity);
+    }
+    //获取短信验证码
+    public void getSMS(String userPhone, String source, String captchaCode){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userPhone", userPhone);
+        map.put("source", source);
+        map.put("captchaCode", captchaCode);
+        this.post("/sendSMSCode", map, activity);
+    }
+    //验证短信是否正确
+    public void verifySMS(String userPhone, String smsCode, String source){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userPhone", userPhone);
+        map.put("smsCode", smsCode);
+        map.put("source", source);
+        this.post("/checkSmsCode", map, activity);
+    }
+    //微信支付
+    public void wechatPay(int userId, String amount){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("amount", amount);
+        this.post("/user/wx_recharge", map, activity);
+    }
+
+    public void alipay(int userId, String amount){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("amount", amount);
+        this.post("/user/zfb_recharge", map, activity);
+    }
     //下载apk更新
     public void update(){
 
@@ -165,12 +202,7 @@ public class RequestInterface extends BaseRequest {
         this.post("/manager/setManager", map, activity);
     }
 
-    public void alipay(int userId, String amount){
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userId", userId);
-        map.put("amount", amount);
-        this.post("/user/zfb_recharge", map, activity);
-    }
+
     //账户流水消息
     public void getAccount(int userId, int pageNo, int pageSize){
         Map<String, Object> map = new HashMap<String, Object>();

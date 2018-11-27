@@ -32,8 +32,6 @@ import android.widget.Toast;
 
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.RechargeDialog;
-import com.tianmi.goldbean.Utils.UpdateDialog;
-import com.tianmi.goldbean.Utils.UpdateDialog1;
 import com.tianmi.goldbean.Utils.UpdateManager;
 import com.tianmi.goldbean.Utils.Utils;
 import com.tianmi.goldbean.adapter.MainListAdapter;

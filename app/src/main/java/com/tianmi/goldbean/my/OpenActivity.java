@@ -156,15 +156,15 @@ public class OpenActivity extends BaseActivity {
             }
 
             @Override
-            public void onResponse(String picUrl, String message) throws IOException {
-                picUrl = picUrl;
-                Log.d("FC", "===="+picUrl);
+            public void onResponse(String url, String message) throws IOException {
+                picUrl = url;
                 checkInfo();
             }
         });
     }
 
     private void openMerchant(){
+        Log.d("FC", picUrl+"======picUrl");
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.openMerchant(Integer.parseInt(userId), name, address, phone, picUrl);
         requestInterface.setCallback(new JsonCallback() {

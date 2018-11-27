@@ -12,7 +12,8 @@ public class Utils {
 
     public static UMWeb getUMWeb(Context context){
         UMImage thumb =  new UMImage(context, R.drawable.icon_app);
-        UMWeb  web = new UMWeb("https://www.baidu.com");
+       String userRecommendCode = DataUtil.getPreferences("userRecommendCode", "");
+        UMWeb  web = new UMWeb("hhttp://www.tianmi0319.com/tianmi/toRegist?invideCode="+userRecommendCode);
         web.setTitle("【捞金豆】我在这里领到了红包，快来一起抢红包吧");//标题
         web.setThumb(thumb);  //缩略图
         web.setDescription("我在这里领到了红包，快来一起抢红包吧");//描述

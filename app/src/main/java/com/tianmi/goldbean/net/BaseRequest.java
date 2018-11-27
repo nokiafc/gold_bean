@@ -54,6 +54,7 @@ public class BaseRequest {
     private final int SUCCESS_PIC = 2;
     private final int TOKEN_OVERDUE = 3;//token过期
     private final int NET_ERROR = 4;
+    private final int IMAGE_CODE = 5;
     private int serversLoadTimes = 0;
     private Handler handler = new Handler() {
         @Override
@@ -76,6 +77,9 @@ public class BaseRequest {
                 }else if(msg.what == NET_ERROR){
                     String message= (String)msg.getData().get("msg");
                     jsonCallback.onError(null, message);
+                }else if(msg.what == IMAGE_CODE){
+                    byte[] b = (byte[])msg.getData().get("byte");
+                    jsonCallback.onResponse(b, "");
                 }
 
             } catch (Exception e) {
@@ -97,6 +101,7 @@ public class BaseRequest {
         this.activity = activity;
         gson = GoldApplication.getGson();
         Log.d("FC", gson.toJson(map)+"~~~~~~~~~");
+        Log.d("FC", Config.BASE_URL + url);
         RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + url)
@@ -178,6 +183,105 @@ public class BaseRequest {
                             e.printStackTrace();
                         }
                     }
+                }
+            }
+        });
+
+    }
+
+    public void postByte(String url, Map<String, Object> map, final Activity activity) {
+
+
+        this.activity = activity;
+        gson = GoldApplication.getGson();
+        Log.d("FC", gson.toJson(map)+"~~~~~~~~~");
+        Log.d("FC", Config.BASE_URL + url);
+        RequestBody requestBody = RequestBody.create(JSON, gson.toJson(map));
+        Request request = new Request.Builder()
+                .url(Config.BASE_URL + url)
+                .addHeader("accessToken", DataUtil.getPreferences("accessToken", ""))
+                .post(requestBody)
+                .build();
+        GoldApplication.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    byte[] jsonStr = response.body().bytes();
+                    Message msg = Message.obtain();
+                    Bundle b = new Bundle();
+                    b.putByteArray("byte", jsonStr);
+                    msg.setData(b);
+                    msg.what = IMAGE_CODE;
+                    handler.sendMessage(msg);
+
+//                    if (!TextUtils.isEmpty(jsonStr.toString())) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(jsonStr);
+//
+//                            String statusCode = jsonObject.getString("code");
+//                            Log.d("FC", "statusCode----" + statusCode);
+//                            if (statusCode.equals("200")) {
+//
+//                                String data;
+//                                if (jsonObject.has("data")) {
+//                                    data = jsonObject.getString("data");
+//                                    if (!data.equals("")) {
+//                                        Log.d("FC", "data----" + data);
+//                                        if(data.contains("{") || data.contains("[")){
+//                                            Message msg = Message.obtain();
+//                                            Object object = gson.fromJson(data, jsonCallback.getType());
+//
+//                                            msg.what = SUCCESS_RESULT;
+//                                            msg.obj = object;
+//                                            handler.sendMessage(msg);
+//                                        }else {//直接返回
+//                                            Message msg = Message.obtain();
+//
+//                                            msg.what = SUCCESS_RESULT;
+//                                            msg.obj = data;
+//                                            handler.sendMessage(msg);
+//                                        }
+//
+//
+//
+//
+//
+//                                    } else {
+//                                        Message msg = Message.obtain();
+//                                        msg.what = SUCCESS_NO_RESULT;
+//                                        handler.sendMessage(msg);
+//                                    }
+//
+//                                }else {
+//                                    Message msg = Message.obtain();
+//                                    msg.what = SUCCESS_NO_RESULT;
+//                                    handler.sendMessage(msg);
+//                                }
+//
+//                            }else if(statusCode.equals("4100000")){
+//                                Message msg = Message.obtain();
+//                                msg.what = TOKEN_OVERDUE;
+//                                handler.sendMessage(msg);
+//                            }else {
+//                                String msg = jsonObject.getString("msg");
+//                                Bundle b = new Bundle();
+//                                b.putString("msg", msg);
+//                                Message message = Message.obtain();
+//                                message.setData(b);
+//                                message.what = NET_ERROR;
+//                                handler.sendMessage(message);
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
                 }
             }
         });
