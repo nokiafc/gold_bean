@@ -158,7 +158,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 if(bean != null){
                     accountText.setText(bean.getAccountBalance());
                     allPersonText.setText("总计"+bean.getTotalCount()+"人");
-                    monPersonText.setText("总计"+bean.getMonthCount()+"人");
+                    monPersonText.setText("本月"+bean.getMonthCount()+"人");
                 }
             }
         });

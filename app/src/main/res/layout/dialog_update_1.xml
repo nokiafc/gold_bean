@@ -17,11 +17,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"/>
         <TextView
-            android:id="@+id/content_text"
+            android:id="@+id/content_text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title_text"
-            android:text="本次更新内容sfdsadfsdffsadfsadfsdafsadfsdfaasdf"
+            android:text="本次更新内容"
+            android:textSize="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <TextView
+            android:id="@+id/content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content_text_1"
+            android:text=""
             android:textSize="14dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -31,7 +41,7 @@
             android:id="@+id/id_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="3dp"
             android:layout_below="@+id/content_text"
             android:layout_marginTop="40dp"/>
         <RelativeLayout

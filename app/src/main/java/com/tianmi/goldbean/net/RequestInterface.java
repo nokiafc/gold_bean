@@ -51,6 +51,13 @@ public class RequestInterface extends BaseRequest {
         map.put("source", source);
         this.post("/checkSmsCode", map, activity);
     }
+    //修改密码
+    public void changePsd(String userPhone, String userPassword){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userPhone", userPhone);
+        map.put("userPassword", userPassword);
+        this.post("/updatePwdByPhone", map, activity);
+    }
     //微信支付
     public void wechatPay(int userId, String amount){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -179,7 +186,7 @@ public class RequestInterface extends BaseRequest {
         map.put("topFlag", topFlag);
         this.post("/manager/audit", map, activity);
     }
-    //管理员获取用户信息
+    //获取用户信息
     public void managerGetUserInfo(String userPhone, int  pageNo, int pageSize){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userPhone", userPhone);

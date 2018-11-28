@@ -18,7 +18,7 @@
             android:layout_centerVertical="true"
             android:text="@string/change_psd"/>
         <EditText
-            android:id="@+id/edit_phone"
+            android:id="@+id/edit_psd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/text_phone"
@@ -51,7 +51,7 @@
             android:layout_centerVertical="true"
             android:text="@string/change_psd_confirm"/>
         <EditText
-            android:id="@+id/edit_verify_code"
+            android:id="@+id/edit_psd_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/text_verify_code"
@@ -72,6 +72,7 @@
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
     <Button
+        android:id="@+id/btn_confirm"
         android:layout_width="282dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"

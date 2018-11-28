@@ -204,7 +204,6 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             return;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
-//      安装完成后，启动app（源码中少了这句话）
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.parse("file://" + apkFile.toString());
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
@@ -222,26 +221,27 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
             @Override
             public void onResponse(VersionBean bean, String message) throws IOException {
-                //1先获取本地版本号码
-                int versionId = bean.getVersionId();
-                int versionCode = Utils.packageCode(getActivity());
-                //2和服务器versionId进行比对
-                boolean isUpdate = false;
-                if(versionCode < versionId){
-                    isUpdate = true;
-                }
-                //3判断是否是强制更新
-                int updateFlag = bean.getUpdateFlag();
-                //是强制更新  调取下载地址进行下载安装
+
                 updateUrl = bean.getUrl();
-//                updateDialog = new UpdateDialog1(getActivity(), "", true);
-//                updateDialog.show();
+                String remark = bean.getRemark();
+                //判断本地和服务器版本是否相同
+                String versionName = Utils.packageName(getActivity());
+                String name = bean.getVersionName();
 
+                if(!versionName.equals(name)){//服务器保存最新版本，如果不同就要更新
 
+                    if(bean.getUpdateFlag() == 0){//非强制更新
+                        updateDialog = new UpdateDialog1(getActivity(), remark, false);
+                        Log.d("FC", versionName+"===="+name);
+                        updateDialog.show();
+
+                    }else {//强制
+
+                    }
+                }
             }
         });
     }
-
 
     @Override
     public void onRefresh() {
@@ -255,7 +255,6 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private void initDotLayout(){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0,0,0);
-        Log.d("FC", topList.size()+"====");
         for(int i=0; i<topList.size(); i++){
             ImageView imageView = new ImageView(getActivity());
             imageViews[i] = imageView;
@@ -320,7 +319,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     }
 
     public class UpdateDialog1 implements View.OnClickListener {
-        private View dialog;
+        private View view;
         private Dialog myDialog;
         private Activity activity;
         private RelativeLayout updateLayout, cancelLayout;
@@ -334,17 +333,20 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             this.isQiangzhi = isQiangzhi;
             this.activity = activity;
             this.content = content;
-            dialog = LayoutInflater.from(activity).inflate(R.layout.dialog_update_1, null);
-            initViews(dialog);
+            view = LayoutInflater.from(activity).inflate(R.layout.dialog_update_1, null);
+            initViews(view);
         }
 
         public void show(){
-
             myDialog = new Dialog(activity, R.style.Theme_AppCompat_Dialog);
-
             myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            myDialog.setCancelable(true);
-            myDialog.setContentView(dialog);
+            if(isQiangzhi){
+                myDialog.setCancelable(false);
+            }else {
+                myDialog.setCancelable(true);
+            }
+
+            myDialog.setContentView(view);
             myDialog.show();
         }
         public void dismiss(){
@@ -357,6 +359,11 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
             cancelLayout = (RelativeLayout)view.findViewById(R.id.cancel_layout);
             cancelLayout.setOnClickListener(this);
+            if(isQiangzhi){//是
+                cancelLayout.setVisibility(View.GONE);
+            }else {
+                cancelLayout.setVisibility(View.VISIBLE);
+            }
             progressBar = (ProgressBar)view.findViewById(R.id.id_progress);
 
         }
@@ -364,6 +371,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         public void updateProgress(int progress){
             progressBar.setProgress(progress);
         }
+
+
 
 
         @Override
@@ -379,7 +388,10 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
                     break;
             }
         }
+
     }
+
+
 
 
 }
