@@ -164,7 +164,6 @@ public class OpenActivity extends BaseActivity {
     }
 
     private void openMerchant(){
-        Log.d("FC", picUrl+"======picUrl");
         RequestInterface requestInterface = new RequestInterface(this);
         requestInterface.openMerchant(Integer.parseInt(userId), name, address, phone, picUrl);
         requestInterface.setCallback(new JsonCallback() {

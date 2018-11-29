@@ -60,7 +60,7 @@ public class MyDialog {
 
         Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
 
-        loadingDialog.setCancelable(false);// 不可以用“返回键”取消
+        loadingDialog.setCancelable(true);// 可以用“返回键”取消
         loadingDialog.setContentView(layout);// 设置布局
 
         return loadingDialog;

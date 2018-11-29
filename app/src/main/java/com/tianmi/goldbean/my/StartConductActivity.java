@@ -1,11 +1,16 @@
 package com.tianmi.goldbean.my;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,6 +79,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_start_conduct);
         initTitle("商家设置");
         init();
+        checkPermission();
     }
     private void init(){
         jieshaoEdit = (EditText)findViewById(R.id.edit_jieshao);
@@ -160,6 +166,59 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         }
 
 
+    }
+
+    private void checkPermission() {
+        int readStoragePermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int cameraPermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+        if (readStoragePermissionState != PackageManager.PERMISSION_GRANTED || cameraPermissionState != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+
+            } else {
+                String[] permissions;
+                if (readStoragePermissionState != PackageManager.PERMISSION_GRANTED && cameraPermissionState != PackageManager.PERMISSION_GRANTED) {
+                    permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                } else {
+                    permissions = new String[]{
+                            (readStoragePermissionState != PackageManager.PERMISSION_GRANTED) ? Manifest.permission.READ_EXTERNAL_STORAGE : Manifest.permission.CAMERA};
+                }
+
+                ActivityCompat.requestPermissions(this, permissions, 0);
+            }
+        } else {
+
+        }
+        int writePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (writePermission != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                if (writePermission != PackageManager.PERMISSION_GRANTED) {
+                    String[] permissionss = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    ActivityCompat.requestPermissions(this, permissionss, 0);
+                }
+
+
+            }
+        } else {
+
+        }
+
+    }
+
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+        switch (permission) {
+            case Manifest.permission.READ_EXTERNAL_STORAGE:
+            case Manifest.permission.CAMERA:
+            case android.Manifest.permission.WRITE_EXTERNAL_STORAGE:
+                // No need to explain to user as it is obvious
+                return false;
+            default:
+                return true;
+        }
     }
 
     private void upLoadImg(String url){
