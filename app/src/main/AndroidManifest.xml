@@ -134,12 +134,11 @@
     <activity
         android:name=".wxapi.WXPayEntryActivity"
         android:exported="true"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait">
+        android:launchMode="singleTop">
         <intent-filter>
             <action android:name="android.intent.action.VIEW"/>
             <category android:name="android.intent.category.DEFAULT"/>
-            <data android:scheme="wx4f059b07213f6ac8"/>
+            <data android:scheme="wxab96184a9724d08d"/>
         </intent-filter>
     </activity>
 

@@ -19,6 +19,9 @@ import android.widget.Toast;
 //import com.alipay.sdk.app.PayTask;
 //import com.mob.wrappers.PaySDKWrapper;
 import com.alipay.sdk.app.PayTask;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
@@ -101,6 +104,7 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
             dialog.dismiss();
             alipay(Integer.parseInt(numEdit.getText().toString()));
         }else {//微信
+            dialog.dismiss();
             wechatPay(numEdit.getText().toString());
         }
 
@@ -117,18 +121,27 @@ public class RechargeActivity extends BaseActivity implements RechargeDialog.MyP
 
             @Override
             public void onResponse(WechatPayBean bean, String message) throws IOException {
-                WXPayUtils.WXPayBuilder builder = new WXPayUtils.WXPayBuilder();
-                builder.setAppId(bean.getAppid())
-                        .setPartnerId(bean.getMch_id())
-                        .setPrepayId(bean.getPrepay_id())
-                        .setPackageValue("Sign=WXPay")
-                        .setNonceStr(bean.getNonce_str())
-                        .setTimeStamp(System.currentTimeMillis()/1000+"")
-                        .setSign(bean.getSign())
-                        .build().toWXPayNotSign(RechargeActivity.this);
+                wechatPay2(bean);
             }
         });
 
+    }
+    private void wechatPay2(WechatPayBean bean){
+        IWXAPI wxApi= WXAPIFactory.createWXAPI(this, null);
+        wxApi.registerApp("wxab96184a9724d08d");
+
+        PayReq request = new PayReq();
+
+//开始数据封装，这里一共有7个字段，都是必传的
+        request.appId = "wxab96184a9724d08d";
+        request.partnerId = bean.getPartnerid();
+        request.prepayId= bean.getPrepayid();
+        request.packageValue = "Sign=WXPay";
+        request.nonceStr= bean.getNoncestr();
+        request.timeStamp= bean.getTimestamp();
+        request.sign= bean.getSign();
+//发起请求
+        wxApi.sendReq(request);
     }
     private void alipay(int amount){
         RequestInterface request = new RequestInterface(this);

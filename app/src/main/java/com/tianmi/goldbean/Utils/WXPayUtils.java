@@ -31,7 +31,7 @@ public class WXPayUtils {
      * 调起微信支付的方法,不需要在客户端签名
      **/
     public void toWXPayNotSign(Context context) {
-        iwxapi = WXAPIFactory.createWXAPI(context, "wxab96184a9724d08d", false); //初始化微信api
+        iwxapi = WXAPIFactory.createWXAPI(context, null); //初始化微信api
         iwxapi.registerApp(builder.getAppId()); //注册appid  appid可以在开发平台获取
         Runnable payRunnable = new Runnable() {  //这里注意要放在子线程
             @Override
