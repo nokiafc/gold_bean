@@ -79,6 +79,12 @@
         <activity android:name=".my.SonActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.ManagerCashActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.ManagerCashVerifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".message.MessageItemActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -93,6 +99,7 @@
         <activity
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".my.GoodsVerfiyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

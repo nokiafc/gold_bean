@@ -98,6 +98,7 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
                 bean.setQuestionId(questionList.get(index-1).getId());
                 bean.setUserId(Integer.parseInt(userId));
                 answerBeans.add(bean);
+                editAnswer.setText("");
 
                 if(nextBtn.getText().toString().equals("提交")){
                     answer();
@@ -131,7 +132,6 @@ public class AnswerActivity extends BaseActivity implements View.OnClickListener
                 myDialog.dismiss();
                 ActivityUtil.startActivity(AnswerActivity.this, AnswerCorrectActivity.class, o+"");
                 finishAfterTransition();
-                Log.d("FC", o+"");
 
             }
         });

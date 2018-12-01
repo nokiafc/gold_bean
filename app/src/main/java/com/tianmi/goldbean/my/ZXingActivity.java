@@ -19,6 +19,7 @@ import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.Utils.QRCodeUtil;
 import com.tianmi.goldbean.Utils.Utils;
+import com.tianmi.goldbean.config.Config;
 import com.tianmi.goldbean.login.LoginActivity;
 import com.tianmi.goldbean.net.JsonCallback;
 import com.tianmi.goldbean.net.RequestInterface;
@@ -30,7 +31,6 @@ import okhttp3.Request;
 public class ZXingActivity extends BaseActivity implements View.OnClickListener{
     private ImageView zxingImg;
     private String userRecommendCode = DataUtil.getPreferences("userRecommendCode", "");
-    private final String SHARE_URL = "http://www.tianmi0319.com/tianmi/toRegist?invideCode=";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +41,7 @@ public class ZXingActivity extends BaseActivity implements View.OnClickListener{
     }
     private void init(){
         zxingImg = (ImageView)findViewById(R.id.zxing_img);
-        zxingImg.setImageBitmap(QRCodeUtil.createQRCodeBitmap(SHARE_URL+userRecommendCode, 400));
-        Log.d("FC", SHARE_URL+userRecommendCode);
+        zxingImg.setImageBitmap(QRCodeUtil.createQRCodeBitmap(Config.SHARE_URL +userRecommendCode, 400));
     }
 
     @Override

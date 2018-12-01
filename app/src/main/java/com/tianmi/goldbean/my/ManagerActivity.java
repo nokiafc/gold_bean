@@ -12,7 +12,7 @@ import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.RechargeDialog;
 
 public class ManagerActivity extends BaseActivity implements View.OnClickListener{
-    private RelativeLayout verifyLayout, addLayout;
+    private RelativeLayout verifyLayout, addLayout, cashLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +26,8 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
         verifyLayout.setOnClickListener(this);
         addLayout = (RelativeLayout)findViewById(R.id.manager_add);
         addLayout.setOnClickListener(this);
+        cashLayout = (RelativeLayout)findViewById(R.id.cash_layout);
+        cashLayout.setOnClickListener(this);
 
     }
 
@@ -37,6 +39,9 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.manager_add://添加子管理员
                 ActivityUtil.startActivity(this, SonActivity.class);
+                break;
+            case R.id.cash_layout://添加子管理员
+                ActivityUtil.startActivity(this, ManagerCashActivity.class);
                 break;
         }
     }

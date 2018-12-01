@@ -233,4 +233,11 @@ public class RequestInterface extends BaseRequest {
         map.put("amount", amount);
         this.post("/user/withdrowApply", map, activity);
     }
+    //管理员查询提现列表
+    public void managerCashList(int pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/manager/getWithdrowList", map, activity);
+    }
 }

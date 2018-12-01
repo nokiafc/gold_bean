@@ -72,7 +72,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
         checkPermission();
-        getMainInfo(1);
+
         getVersion();
         getMainUp();
         return view;
@@ -135,6 +135,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
             @Override
             public void onResponse(List<RecyclerBean> list, String message) throws IOException {
+                getMainInfo(1);
                 if(list != null){
                     topList.addAll(list);
                     topAdapter.notifyDataSetChanged();
@@ -156,6 +157,17 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             @Override
             public void onResponse(List<RecyclerBean> list, String message) throws IOException {
                 swipeRefreshLayout.setRefreshing(false);
+                if(topList.size() > 0){
+                    for(int y=0; y< list.size(); y++){//置顶的商品不显示在下方列表
+                        for(int i=0; i<topList.size(); i++){
+                            if(topList.get(i).getId() == list.get(y).getId()){
+                                list.remove(y);
+                            }
+                        }
+                    }
+                }
+
+
                 if(listView.getFooterViewsCount() > 0){//移除底部加载条
                     listView.removeFooterView(footerView);
                 }

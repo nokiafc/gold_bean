@@ -37,9 +37,7 @@ public class RechargeDialog implements View.OnClickListener {
     }
 
     public void showDialog(){
-
         myDialog = new Dialog(activity, R.style.Theme_AppCompat_Dialog);
-
         myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         myDialog.setCancelable(true);
         myDialog.setContentView(dialog);

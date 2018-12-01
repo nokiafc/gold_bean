@@ -83,6 +83,7 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
             @Override
             public void onResponse(Object o, String message) throws IOException {
                 myDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "提现申请已提交，请等待审核", Toast.LENGTH_SHORT).show();
             }
         });
     }

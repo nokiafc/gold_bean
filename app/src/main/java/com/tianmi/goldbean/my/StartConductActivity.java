@@ -130,11 +130,11 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
         }
         for(int i=0; i<listQuestion.size(); i++){
             if(listQuestion.get(i).getQuestionName() == null|| listQuestion.get(i).getQuestionName().equals("")){
-                Toast.makeText(this, "请设置正确的问题和答案", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "问题"+(i+1)+"不能为空", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(listQuestion.get(i).getQuestionAnswer() == null|| listQuestion.get(i).getQuestionAnswer().equals("")){
-                Toast.makeText(this, "请设置正确的问题和答案", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "问题"+(i+1)+"的答案不能为空", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
