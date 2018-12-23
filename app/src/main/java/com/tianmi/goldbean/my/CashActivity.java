@@ -10,7 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tianmi.goldbean.BaseActivity;
+import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.R;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.Utils.MyDialog;
@@ -38,6 +45,9 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
         amountAccount = getIntent().getStringExtra("key");
         initTitle("提现");
         init();
+        //1.调取接口，判断有没有记录支付宝账户
+        //2.点击提现，输入支付宝账户和姓名
+        //3.必须确认是否提交
     }
     private void init(){
         canUseMoney = (TextView)findViewById(R.id.text_use_money);
@@ -58,7 +68,8 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
                 }
                 dialog = new RechargeDialog(CashActivity.this , "到账方式");
                 dialog.setPayCall(CashActivity.this);
-                dialog.hintWechat();
+//                dialog.hintWechat();
+                dialog.showWechat();
                 dialog.showDialog();
             }
         });
@@ -68,7 +79,16 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
     public void pay(String imgFlag) {
         dialog.dismiss();
         myDialog = MyDialog.createLoadingDialog(this, "提交中...");
-        cash(cashAmount);//提现
+//        cash(cashAmount);//提现
+        getCode();
+    }
+    private void getCode(){
+
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+        GoldApplication.api.sendReq(req);
+
     }
     private void cash(String amount){
         RequestInterface request = new RequestInterface(this);

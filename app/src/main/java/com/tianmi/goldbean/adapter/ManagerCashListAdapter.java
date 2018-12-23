@@ -58,10 +58,11 @@ public class ManagerCashListAdapter extends BaseAdapter {
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ManagerCashListBean bean = list.get(position);
-                Bundle b =  new Bundle();
-                b.putSerializable("bean", bean);
-                ActivityUtil.startActivity((Activity)context, ManagerCashVerifyActivity.class, b);
+                //不做跳转了，自动提现，不需要跳转审核
+//                ManagerCashListBean bean = list.get(position);
+//                Bundle b =  new Bundle();
+//                b.putSerializable("bean", bean);
+//                ActivityUtil.startActivity((Activity)context, ManagerCashVerifyActivity.class, b);
             }
         });
         holder.zhanghuText.setText("用户ID:"+list.get(position).getUserId()+"  提现金额:"+list.get(position).getAmount()+"  审核状态:"+list.get(position).getAduitStatus()

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -55,6 +56,7 @@ public class BaseRequest {
     private final int TOKEN_OVERDUE = 3;//token过期
     private final int NET_ERROR = 4;
     private final int IMAGE_CODE = 5;
+    private final int OPEN_ID = 6;
     private int serversLoadTimes = 0;
     private Handler handler = new Handler() {
         @Override
@@ -80,6 +82,9 @@ public class BaseRequest {
                 }else if(msg.what == IMAGE_CODE){
                     byte[] b = (byte[])msg.getData().get("byte");
                     jsonCallback.onResponse(b, "");
+                }else if(msg.what == OPEN_ID){
+                    Object object = msg.obj;
+                    jsonCallback.onResponse(object, object.toString());
                 }
 
             } catch (Exception e) {
@@ -93,6 +98,32 @@ public class BaseRequest {
 
     public void setCallback(JsonCallback jsonCallback) {
         this.jsonCallback = jsonCallback;
+    }
+    public void get(String url, final  Activity activity){
+        this.activity = activity;
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        GoldApplication.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonStr = response.body().string();
+                if(jsonStr !=null ){
+                    Log.d("FC", "==---==="+jsonStr);
+                    Message msg = Message.obtain();
+
+                    msg.what = OPEN_ID;
+                    msg.obj = jsonStr;
+                    handler.sendMessage(msg);
+                }
+            }
+        });
     }
 
     public void post(String url, Map<String, Object> map, final Activity activity) {

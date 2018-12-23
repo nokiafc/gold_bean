@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tianmi.goldbean.R;
+import com.umeng.commonsdk.debug.I;
 
 
 public class RechargeDialog implements View.OnClickListener {
@@ -69,6 +70,11 @@ public class RechargeDialog implements View.OnClickListener {
     }
     public void hintWechat(){
         wechatLayout.setVisibility(View.INVISIBLE);
+    }
+
+    public void showWechat(){
+        alipayLayout.setVisibility(View.INVISIBLE);
+        wechatImg.setImageResource(R.drawable.icon_pay_choose);
     }
 
     @Override

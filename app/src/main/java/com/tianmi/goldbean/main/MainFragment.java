@@ -1,11 +1,9 @@
 package com.tianmi.goldbean.main;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,11 +11,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +57,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     private int pageSize = 10;
     private View footerView;
     private boolean isEmpty = false;
-    private UpdateDialog1 updateDialog;
+    private UpdateDialog updateDialog;
     private String updateUrl = "";
     private ViewPager viewPager;
     private MainPagerAdapter topAdapter;
@@ -71,10 +66,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         init(view);
-        checkPermission();
-
-        getVersion();
-        getMainUp();
+        getVersion();//版本信息
+        getMainUp();//viewpager数据
         return view;
     }
 
@@ -234,21 +227,18 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
             @Override
             public void onResponse(VersionBean bean, String message) throws IOException {
 
-                updateUrl = bean.getUrl();
-                String remark = bean.getRemark();
-                //判断本地和服务器版本是否相同
+                updateUrl = bean.getUrl();//下载地址
+                String remark = bean.getRemark();//更新说明
                 String versionName = Utils.packageName(getActivity());
                 String name = bean.getVersionName();
-
                 if(!versionName.equals(name)){//服务器保存最新版本，如果不同就要更新
 
                     if(bean.getUpdateFlag() == 0){//非强制更新
-                        updateDialog = new UpdateDialog1(getActivity(), remark, false);
-                        Log.d("FC", versionName+"===="+name);
+                        updateDialog = new UpdateDialog(getActivity(), remark, false);
                         updateDialog.show();
-
                     }else {//强制
-
+                        updateDialog = new UpdateDialog(getActivity(), remark, true);
+                        updateDialog.show();
                     }
                 }
             }
@@ -302,35 +292,8 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
 
     }
 
-    private void checkPermission() {
-        int readStoragePermissionState = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (readStoragePermissionState != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-            } else {
-                String[] permissions;
-                permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
-                ActivityCompat.requestPermissions(getActivity(), permissions, 0);
-            }
-        } else {
-
-        }
-        int writePermission = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (writePermission != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-            } else {
-                if (writePermission != PackageManager.PERMISSION_GRANTED) {
-                    String[] permissionss = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    ActivityCompat.requestPermissions(getActivity(), permissionss, 0);
-                }
-            }
-        } else {
-
-        }
-    }
-
-    public class UpdateDialog1 implements View.OnClickListener {
+    public class UpdateDialog implements View.OnClickListener {
         private View view;
         private Dialog myDialog;
         private Activity activity;
@@ -341,7 +304,7 @@ public class MainFragment extends Fragment implements ViewPager.OnPageChangeList
         private ProgressBar progressBar;
         private boolean isQiangzhi = false;
 
-        public UpdateDialog1(Activity activity, String content, boolean isQiangzhi){
+        public UpdateDialog(Activity activity, String content, boolean isQiangzhi){
             this.isQiangzhi = isQiangzhi;
             this.activity = activity;
             this.content = content;

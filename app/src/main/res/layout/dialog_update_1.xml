@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_below="@+id/content_text"
+            android:indeterminateTint="@color/shape_dot"
             android:layout_marginTop="40dp"/>
         <RelativeLayout
             android:id="@+id/cancel_layout"

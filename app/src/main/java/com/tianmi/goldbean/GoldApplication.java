@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tianmi.goldbean.config.Config;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 //import com.mob.MobSDK;
@@ -23,6 +26,7 @@ public class GoldApplication extends Application {
     private List<Activity> outList = new LinkedList<Activity>();
 
     public static SharedPreferences sp;
+    public static IWXAPI api;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +34,12 @@ public class GoldApplication extends Application {
         initOkHttpClient();
         sp = getSharedPreferences("com.tianmi.goldbean", 0);
         initUmeng();
+        getWechatApi();
+    }
+    private void getWechatApi(){
+        if(api == null){
+            api = WXAPIFactory.createWXAPI(this, Config.APP_ID, true);
+        }
     }
     private void initUmeng(){
         UMConfigure.init(this, "5bf6ad36b465f5c37d0000e6", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
