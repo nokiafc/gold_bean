@@ -23,6 +23,13 @@ public class RequestInterface extends BaseRequest {
     public RequestInterface(Activity activity) {
         this.activity = activity;
     }
+
+    public void bindWechat(String wxOpenId, int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("wxOpenId", wxOpenId);
+        map.put("userId", userId);
+        this.post("/user/addAliInfo", map, activity);
+    }
     //获取服务器版本信息
     public void getVersion(){
         Map<String, Object> map = new HashMap<String, Object>();

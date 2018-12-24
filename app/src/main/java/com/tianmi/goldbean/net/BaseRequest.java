@@ -57,6 +57,7 @@ public class BaseRequest {
     private final int NET_ERROR = 4;
     private final int IMAGE_CODE = 5;
     private final int OPEN_ID = 6;
+    private final int NO_OPEN_ID = 7;
     private int serversLoadTimes = 0;
     private Handler handler = new Handler() {
         @Override
@@ -85,6 +86,8 @@ public class BaseRequest {
                 }else if(msg.what == OPEN_ID){
                     Object object = msg.obj;
                     jsonCallback.onResponse(object, object.toString());
+                }else if(msg.what == NO_OPEN_ID){
+                    jsonCallback.onError(null, "请先绑定微信账号");
                 }
 
             } catch (Exception e) {
@@ -200,6 +203,10 @@ public class BaseRequest {
                                 Message msg = Message.obtain();
                                 msg.what = TOKEN_OVERDUE;
                                 handler.sendMessage(msg);
+                            }else if(statusCode.equals("4100001")){
+                                Message message = Message.obtain();
+                                message.what = NO_OPEN_ID;
+                                handler.sendMessage(message);
                             }else {
                                 String msg = jsonObject.getString("msg");
                                 Bundle b = new Bundle();

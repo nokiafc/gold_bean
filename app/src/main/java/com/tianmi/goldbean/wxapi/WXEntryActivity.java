@@ -10,9 +10,11 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tianmi.goldbean.GoldApplication;
+import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.config.Config;
 import com.tianmi.goldbean.net.BaseRequest;
 import com.tianmi.goldbean.net.JsonCallback;
+import com.tianmi.goldbean.net.RequestInterface;
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 import org.json.JSONObject;
@@ -58,6 +60,8 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                 try {
                     JSONObject jsonObject = new JSONObject(o+"");
                     String openid = jsonObject.get("openid")+"";
+                    DataUtil.putPreferences("openId", openid);
+                    addOpenId(openid);
                     Toast.makeText(getApplicationContext(), openid, Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
 
@@ -67,4 +71,22 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
             }
         });
     }
+
+    public void addOpenId(String opendId){
+        RequestInterface requestInterface = new RequestInterface(this);
+        requestInterface.bindWechat(opendId, Integer.parseInt(DataUtil.getPreferences("userId", "")));
+        requestInterface.setCallback(new JsonCallback() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(Object o, String message) throws IOException {
+                Toast.makeText(getApplicationContext(), "绑定成功，请点击提现", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 }

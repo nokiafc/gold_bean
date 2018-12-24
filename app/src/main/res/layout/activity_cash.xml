@@ -88,6 +88,18 @@
         android:textSize="16dp"
         android:background="@drawable/shape_button"/>
 
+    <Button
+        android:id="@+id/btn_bind_wechat"
+        android:layout_width="282dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:text="绑定微信"
+        android:textColor="@color/text_color_3"
+        android:textSize="16dp"
+        android:background="@drawable/shape_button"/>
+
 
 
 

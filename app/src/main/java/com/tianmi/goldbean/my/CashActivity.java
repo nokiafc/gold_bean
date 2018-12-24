@@ -37,6 +37,7 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
     private String amountAccount = "";
     private TextView canUseMoney;
     private String cashAmount = "";
+    private Button bindWechat;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,13 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
         //3.必须确认是否提交
     }
     private void init(){
+        bindWechat = (Button)findViewById(R.id.btn_bind_wechat);
+        bindWechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCode();
+            }
+        });
         canUseMoney = (TextView)findViewById(R.id.text_use_money);
         canUseMoney.setText(amountAccount);
         cashEdit = (EditText)findViewById(R.id.edit_cash) ;
@@ -79,8 +87,8 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
     public void pay(String imgFlag) {
         dialog.dismiss();
         myDialog = MyDialog.createLoadingDialog(this, "提交中...");
-//        cash(cashAmount);//提现
-        getCode();
+        cash(cashAmount);//提现
+//        getCode();
     }
     private void getCode(){
 
@@ -96,6 +104,7 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
         request.setCallback(new JsonCallback() {
             @Override
             public void onError(Request request, String e) {
+                bindWechat.setVisibility(View.VISIBLE);
                 myDialog.dismiss();
                 Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
             }
