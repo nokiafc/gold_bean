@@ -52,8 +52,7 @@ public class SplashActivity extends BaseActivity {
             msg.what= 0;
             handler.sendMessageDelayed(msg, 1000);
         }else {//请求个接口判断token是否过期
-//            getMyInfo();
-            ActivityUtil.startActivity(SplashActivity.this, MainActivity.class);
+            getMyInfo();
 
         }
     }

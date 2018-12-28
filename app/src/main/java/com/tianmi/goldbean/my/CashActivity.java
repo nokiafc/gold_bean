@@ -19,6 +19,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tianmi.goldbean.BaseActivity;
 import com.tianmi.goldbean.GoldApplication;
 import com.tianmi.goldbean.R;
+import com.tianmi.goldbean.Utils.CashDialog;
 import com.tianmi.goldbean.Utils.DataUtil;
 import com.tianmi.goldbean.Utils.MyDialog;
 import com.tianmi.goldbean.Utils.RechargeDialog;
@@ -29,7 +30,7 @@ import java.io.IOException;
 
 import okhttp3.Request;
 
-public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCallBack{
+public class CashActivity extends BaseActivity implements CashDialog.MyPayCallBack{
     private Button cashBtn;
     private String userId = DataUtil.getPreferences("userId", "");
     private Dialog myDialog;
@@ -74,15 +75,15 @@ public class CashActivity extends BaseActivity implements RechargeDialog.MyPayCa
                     Toast.makeText(CashActivity.this, "最小提现金额1元", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                dialog = new RechargeDialog(CashActivity.this , "到账方式");
+                dialog = new CashDialog(CashActivity.this , "到账方式");
                 dialog.setPayCall(CashActivity.this);
 //                dialog.hintWechat();
-                dialog.showWechat();
+//                dialog.showWechat();
                 dialog.showDialog();
             }
         });
     }
-    private RechargeDialog dialog;
+    private CashDialog dialog;
     @Override
     public void pay(String imgFlag) {
         dialog.dismiss();
