@@ -247,4 +247,27 @@ public class RequestInterface extends BaseRequest {
         map.put("pageSize", pageSize);
         this.post("/manager/getWithdrowList", map, activity);
     }
+    public void retweet(int goodsId, String retweetImage, int retweetTotalCount, int retweetTotalBonus, int userId, String remark){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsId", goodsId);
+        map.put("retweetImage", retweetImage);
+        map.put("retweetTotalCount", retweetTotalCount);
+        map.put("retweetTotalBonus", retweetTotalBonus);
+        map.put("userId", userId);
+        map.put("remark", remark);
+        this.post("/retweet/merchant", map, activity);
+    }
+
+    public void getFriendInfo(int goodsId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("goodsId", goodsId);
+        this.post("/retweet/getByGoodsId ", map, activity);
+    }
+    public void getFriendInfoList(int pageNo, int pageSize, int auditStatus){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        map.put("auditStatus", auditStatus);
+        this.post("/retweet/merchantList", map, activity);
+    }
 }

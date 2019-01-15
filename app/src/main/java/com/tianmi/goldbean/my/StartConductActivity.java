@@ -276,6 +276,7 @@ public class StartConductActivity extends BaseActivity implements View.OnClickLi
                 myDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "上传成功，请等待审核", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), GoodsVerfiyActivity.class);
+                i.putExtra("goodsId", o+"");
                 startActivity(i);
                 finish();
             }

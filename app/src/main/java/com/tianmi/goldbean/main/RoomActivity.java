@@ -128,8 +128,9 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.friend_layout:
                 //分享到朋友圈
-                new ShareAction(this).withMedia(Utils.getUMWeb(this)).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN)
-                        .setCallback(umShareListener).open();
+                Intent intent = new Intent(this, StartFriendActivity.class);
+                intent.putExtra("goodsId", goodsId);
+                startActivity(intent);
                 break;
             case R.id.merchant_layout:
                 //跳转商家信息页

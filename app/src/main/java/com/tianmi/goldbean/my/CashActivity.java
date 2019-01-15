@@ -105,7 +105,10 @@ public class CashActivity extends BaseActivity implements CashDialog.MyPayCallBa
         request.setCallback(new JsonCallback() {
             @Override
             public void onError(Request request, String e) {
-                bindWechat.setVisibility(View.VISIBLE);
+                if(!e.contains("余额")){
+                    bindWechat.setVisibility(View.VISIBLE);
+                }
+
                 myDialog.dismiss();
                 Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
             }

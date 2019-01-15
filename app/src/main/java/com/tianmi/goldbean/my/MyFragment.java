@@ -31,7 +31,7 @@ import okhttp3.Request;
 
 public class MyFragment extends Fragment implements View.OnClickListener {
     private Button rechargeBtn, cashBtn;
-    private ImageView conductImg;
+    private ImageView conductImg, shopImg;
     private TextView userPhone, userIdText ;
     //是否开通商户
     private String merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
@@ -50,6 +50,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        shopImg = view.findViewById(R.id.img_shop);
+        shopImg.setOnClickListener(this);
         addFriendLayout = (RelativeLayout)view.findViewById(R.id.add_friend_layout) ;
         addFriendLayout.setOnClickListener(this);
         accountText = (TextView)view.findViewById(R.id.text_gold_num) ;
@@ -89,6 +91,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.img_head://跳转设置页面
                 ActivityUtil.startActivity(getActivity(), SetActivity.class);
+                break;
+            case R.id.img_shop:
+                ActivityUtil.startActivity(getActivity(), SetFriendActivity.class);
                 break;
         }
     }

@@ -233,15 +233,16 @@
                 android:layout_below="@+id/text_conduct"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="60dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/img_collect"
                 android:layout_marginLeft="53dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/img_collect"
-                android:textSize="14dp"
+                android:text="商家审核"
                 android:textColor="@color/text_color_5"
-                android:text="我的收藏"/>
+                android:textSize="14dp" />
 
                         <!-- -->
             <ImageView
@@ -272,16 +273,17 @@
                 android:layout_marginTop="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="60dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/img_card"
-                android:textSize="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="60dp"
+                android:text="会员核对"
                 android:textColor="@color/text_color_5"
-                android:text="我的卡券"/>
+                android:textSize="14dp" />
         </RelativeLayout>
     </RelativeLayout>
 
