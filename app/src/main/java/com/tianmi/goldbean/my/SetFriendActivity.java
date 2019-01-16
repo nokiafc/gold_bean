@@ -103,8 +103,19 @@ public class SetFriendActivity extends BaseActivity {
 
         }
         Log.d("FC", allUrl);
-//        RequestInterface request = new RequestInterface(this);
-//        request.retweet(goodsId, allUrl, Integer.parseInt(redNum), Integer.parseInt(redMoney), Integer.parseInt(userId), remark);
+        RequestInterface request = new RequestInterface(this);
+        request.retweet(goodsId, allUrl, Integer.parseInt(redNum), Integer.parseInt(redMoney), Integer.parseInt(userId), remark);
+        request.setCallback(new JsonCallback() {
+            @Override
+            public void onError(Request request, String e) {
+
+            }
+
+            @Override
+            public void onResponse(Object o, String message) throws IOException {
+                Toast.makeText(getApplicationContext(), "上传成功，请等待审核", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private Handler handler = new Handler(){
@@ -112,7 +123,6 @@ public class SetFriendActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             startNum = startNum+1;
             if(startNum == photoNum){//所有图片请求都已成功
-
                 setFriend( );
             }
         }

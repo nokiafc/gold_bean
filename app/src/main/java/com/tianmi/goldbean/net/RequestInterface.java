@@ -270,4 +270,12 @@ public class RequestInterface extends BaseRequest {
         map.put("auditStatus", auditStatus);
         this.post("/retweet/merchantList", map, activity);
     }
+
+    public void sheheFriendInfo(int auditStatus, int auditUserId, String retweetNo){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("auditStatus", auditStatus);
+        map.put("auditUserId", auditUserId);
+        map.put("retweetNo", retweetNo);
+        this.post("/retweet/auditMerchant", map, activity);
+    }
 }

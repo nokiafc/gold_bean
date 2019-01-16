@@ -39,20 +39,22 @@ public class CheckFriendInfoActivity extends BaseActivity implements SwipeRefres
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#00aeff"));
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        adapter = new FriendInfoCheckAdapter();
+        adapter = new FriendInfoCheckAdapter(this, verifyList);
+        listview.setAdapter(adapter);
     }
     private void getInfoList(String pageNo){
         RequestInterface request = new RequestInterface(this);
         request.getFriendInfoList(Integer.parseInt(pageNo), 10, 0);
-        request.setCallback(new JsonCallback() {
+        request.setCallback(new JsonCallback<List<FriendInfoBean>>() {
             @Override
             public void onError(Request request, String e) {
 
             }
 
             @Override
-            public void onResponse(Object o, String message) throws IOException {
-
+            public void onResponse(List<FriendInfoBean> list, String message) throws IOException {
+                verifyList.addAll(list);
+                adapter.notifyDataSetChanged();
             }
         });
     }

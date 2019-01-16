@@ -88,6 +88,9 @@
         <activity android:name=".my.ManagerCashVerifyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.ManagerFriendVerifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".my.CheckFriendInfoActivity"
             android:screenOrientation="portrait"
