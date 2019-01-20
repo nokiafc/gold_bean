@@ -116,8 +116,7 @@ public class StartFriendActivity extends BaseActivity {
 
     private void getBitmap(String url, final int i) {
         try {
-            Bitmap b = Glide.with(this).load(url).asBitmap().centerCrop().into(150, 150).get();
-            Log.d("FC", i + "----");
+            Bitmap b = Glide.with(this).load(url).asBitmap().centerCrop().into(500, 500).get();
             saveBitmap(b, i);
         } catch (Exception e) {
 
