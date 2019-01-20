@@ -47,7 +47,7 @@ public class SetFriendActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_friend);
 //        goodsId = Integer.parseInt(getIntent().getStringExtra("goodsId"));
-        goodsId = 30;
+        goodsId = 32;
         init();
     }
     private void init(){

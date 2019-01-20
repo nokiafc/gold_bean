@@ -31,7 +31,7 @@ import okhttp3.Request;
 
 public class MyFragment extends Fragment implements View.OnClickListener {
     private Button rechargeBtn, cashBtn;
-    private ImageView conductImg, shopImg;
+    private ImageView conductImg, shopImg, memberImg;
     private TextView userPhone, userIdText ;
     //是否开通商户
     private String merchantsFlag = DataUtil.getPreferences("merchantsFlag", "");
@@ -40,6 +40,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private ImageView managerImg, addFriendImg;
     private TextView accountText, allPersonText, monPersonText;
     private RelativeLayout addFriendLayout;
+    private ImageView disagreeImg;
 
 
     @Override
@@ -50,6 +51,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         return view;
     }
     private void init(View view ){
+        disagreeImg = view.findViewById(R.id.img_collect);
+        disagreeImg.setOnClickListener(this);
+        memberImg = view.findViewById(R.id.img_card);
+        memberImg.setOnClickListener(this);
         shopImg = view.findViewById(R.id.img_shop);
         shopImg.setOnClickListener(this);
         addFriendLayout = (RelativeLayout)view.findViewById(R.id.add_friend_layout) ;
@@ -94,6 +99,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.img_shop:
                 ActivityUtil.startActivity(getActivity(), SetFriendActivity.class);
+                break;
+            case R.id.img_card:
+                ActivityUtil.startActivity(getActivity(), MemberUpFriendActivity.class);
+            break;
+            case R.id.img_collect://商家查看提出异议页面
+                ActivityUtil.startActivity(getActivity(), DisagreeActivity.class);
                 break;
         }
     }

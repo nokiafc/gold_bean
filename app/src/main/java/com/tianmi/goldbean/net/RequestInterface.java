@@ -271,11 +271,49 @@ public class RequestInterface extends BaseRequest {
         this.post("/retweet/merchantList", map, activity);
     }
 
+    public void getMemberInfoList(int pageNo, int pageSize, int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        map.put("userId", userId);
+        this.post("/retweet/userList", map, activity);
+    }
+
+    public void getMemberInfoList1(int pageNo, int pageSize){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        this.post("/retweet/userList", map, activity);}
+
     public void sheheFriendInfo(int auditStatus, int auditUserId, String retweetNo){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("auditStatus", auditStatus);
         map.put("auditUserId", auditUserId);
         map.put("retweetNo", retweetNo);
         this.post("/retweet/auditMerchant", map, activity);
+    }
+
+    public void memberUpFriend(int userId, String retweetNo, String retweetImage){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("retweetNo", retweetNo);
+        map.put("retweetImage", retweetImage);
+        this.post("/retweet/user", map, activity);
+    }
+    public void manageMemberUpInfo(int auditUserId, int auditStatus, String auditRemark, String retweetNo, int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("auditUserId", auditUserId);
+        map.put("auditStatus", auditStatus);
+        map.put("auditRemark", auditRemark);
+        map.put("retweetNo", retweetNo);
+        map.put("userId", userId);
+        this.post("/retweet/aduitUser", map, activity);
+    }
+    public void disagreeFriend( String merchantRemark, String retweetNo, int userId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("merchantRemark", merchantRemark);
+        map.put("retweetNo", retweetNo);
+        map.put("userId", userId);
+        this.post("/retweet/merchantObjection", map, activity);
     }
 }

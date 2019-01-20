@@ -12,7 +12,7 @@ import com.tianmi.goldbean.Utils.ActivityUtil;
 import com.tianmi.goldbean.Utils.RechargeDialog;
 
 public class ManagerActivity extends BaseActivity implements View.OnClickListener{
-    private RelativeLayout verifyLayout, addLayout, cashLayout, friendLayout;
+    private RelativeLayout verifyLayout, addLayout, cashLayout, friendLayout, memberLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +22,8 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
         init();
     }
     private void init(){
+        memberLayout = findViewById(R.id.member_layout);
+        memberLayout.setOnClickListener(this);
         friendLayout = findViewById(R.id.friend_layout);
         friendLayout.setOnClickListener(this);
         verifyLayout = (RelativeLayout)findViewById(R.id.manager_verify);
@@ -47,6 +49,9 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.friend_layout:
                 ActivityUtil.startActivity(this, CheckFriendInfoActivity.class);
+                break;
+            case R.id.member_layout://审核用户上传的朋友圈信息
+                ActivityUtil.startActivity(this, CheckmemberUpListActivity.class);
                 break;
         }
     }

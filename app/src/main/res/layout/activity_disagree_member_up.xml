@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/title_text"
+        layout="@layout/layout_base_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_text"
+        android:id="@+id/content_text"/>
+    <me.iwf.photopicker.widget.MultiPickResultView
+        android:id="@+id/multiPick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/content_text"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <Button
+        android:id="@+id/check_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="查看商户信息"
+        android:layout_below="@+id/multiPick"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/text_color_3"
+        android:visibility="gone"
+        android:background="@drawable/selector_red_button"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/multiPick"
+        android:layout_marginTop="100dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="异议备注"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+        <EditText
+            android:id="@+id/edit_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="100dp"/>
+
+    </RelativeLayout>
+
+
+
+
+        <Button
+            android:id="@+id/pass_btn"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:text="异议"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/text_color_3"
+            android:background="@drawable/selector_red_button"/>
+    <Button
+        android:id="@+id/pass_up_btn"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:text="置顶上架"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_toRightOf="@+id/pass_btn"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/text_color_3"
+        android:background="@drawable/selector_red_button"/>
+
+    <Button
+        android:id="@+id/refuse_btn"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+
+        android:text="异议"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_color_3"
+        android:layout_toRightOf="@+id/pass_up_btn"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/selector_red_button"/>
+
+
+</RelativeLayout>
